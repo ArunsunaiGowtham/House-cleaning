@@ -524,17 +524,57 @@
         e.preventDefault(); e.stopPropagation();
         addCustForm.classList.add('was-validated');
         if (addCustForm.checkValidity()) {
-          const data = {
-            name: document.getElementById('cName').value,
-            email: document.getElementById('cEmail').value,
-            phone: document.getElementById('cPhone').value,
-            address: document.getElementById('cAddress').value,
-            city: document.getElementById('cCity').value,
-            status: document.getElementById('cStatus').value,
-            date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+          const fullName = document.getElementById('cName').value.trim();
+          const email = document.getElementById('cEmail').value.trim().toLowerCase();
+          const phone = document.getElementById('cPhone').value.trim();
+          const addressValue = document.getElementById('cAddress').value.trim();
+          const city = document.getElementById('cCity').value.trim();
+          const zip = document.getElementById('cZip').value.trim();
+          const status = document.getElementById('cStatus').value;
+          const plan = document.getElementById('cType').value || 'standard';
+          const createdAt = new Date().toISOString();
+
+          const existing = SP_AUTH ? SP_AUTH.getUsers() : [];
+          if (existing.some((u) => u.email.toLowerCase() === email)) {
+            showGlobalToast('A customer with that email already exists.');
+            return;
+          }
+
+          const [firstName, ...rest] = fullName.split(' ');
+          const newUser = {
+            id: 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+            role: 'customer',
+            email,
+            password: 'changeme',
+            firstName: firstName || fullName,
+            lastName: rest.join(' ') || '',
+            fullName,
+            phone,
+            address: `${addressValue}${city ? ', ' + city : ''}${zip ? ', ' + zip : ''}`,
+            area: city || addressValue || 'N/A',
+            plan,
+            status,
+            paymentMethod: 'Card ending in 1234',
+            lifetimeValue: 0,
+            createdAt
           };
-          saveToCollection('sparklepro_customers', data);
-          showGlobalToast("Customer added successfully.");
+
+          if (SP_AUTH) {
+            saveAdminUsers([...existing, newUser]);
+          }
+
+          saveToCollection('sparklepro_customers', {
+            name: fullName,
+            email,
+            phone,
+            address: newUser.address,
+            city,
+            status,
+            plan,
+            date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+          });
+
+          showGlobalToast('Customer added successfully.');
           setTimeout(() => { window.location.href = 'users.html'; }, 1000);
         }
       });
@@ -685,11 +725,111 @@
 
     
     // --- 15. ADMIN DASHBOARD RENDERING & MODALS ---
+    const getAdminCustomers = () => {
+      if (typeof SP_AUTH === 'undefined') return [];
+      return SP_AUTH.getUsers().filter(u => u.role !== 'admin');
+    };
+
+    const saveAdminUsers = (users) => localStorage.setItem('sp_users', JSON.stringify(users));
+    const getUserById = (id) => getAdminCustomers().find((u) => u.id === id);
+    const removeUserById = (id) => {
+      const users = getAdminCustomers().filter((u) => u.id !== id);
+      saveAdminUsers(users);
+      return users;
+    };
+
+    const formatCustomerPlan = (plan) => {
+      if (!plan) return 'Standard';
+      return plan.charAt(0).toUpperCase() + plan.slice(1);
+    };
+
+    const formatPaymentMethod = (paymentMethod) => paymentMethod ? paymentMethod : 'None';
+    const formatMoney = (value) => {
+      const amount = parseFloat(value);
+      return Number.isFinite(amount) ? `$${amount.toFixed(2)}` : '$0.00';
+    };
+
+    const renderCustomerStats = () => {
+      const customers = getAdminCustomers();
+      const activeCount = customers.filter((u) => (u.status || 'Active').toLowerCase() !== 'inactive').length;
+      const newCount = customers.filter((u) => {
+        if (!u.createdAt) return true;
+        const created = new Date(u.createdAt);
+        return Date.now() - created.getTime() <= 30 * 24 * 60 * 60 * 1000;
+      }).length;
+      const retention = customers.length ? Math.round((activeCount / customers.length) * 100) : 0;
+      const activeEl = document.getElementById('kpiActiveCustomers');
+      const newEl = document.getElementById('kpiNewCustomers');
+      const retentionEl = document.getElementById('kpiRetention');
+      const avgRatingEl = document.getElementById('kpiAvgRating');
+      if (activeEl) activeEl.textContent = activeCount;
+      if (newEl) newEl.textContent = newCount;
+      if (retentionEl) retentionEl.textContent = `${retention}%`;
+      if (avgRatingEl) avgRatingEl.textContent = '4.9';
+    };
+
+    const renderCustomerModal = (userId, mode = 'view') => {
+      const user = getUserById(userId);
+      const modal = document.getElementById('adminViewCustomerModal');
+      const modalTitle = modal?.querySelector('.modal-title');
+      const modalContent = document.getElementById('adminViewCustomerContent');
+      const modalFooter = document.getElementById('adminViewCustomerFooter');
+      if (!user || !modalContent || !modalFooter || !modal || !modalTitle) return;
+
+      const status = user.status || 'Active';
+      const plan = formatCustomerPlan(user.plan);
+      const paymentMethod = formatPaymentMethod(user.paymentMethod);
+      const address = user.address || 'N/A';
+      const bookings = SP_AUTH.getBookingsForUser(user.id).length;
+      const invoices = SP_AUTH.getInvoicesForUser(user.id).length;
+
+      if (mode === 'edit') {
+        modalTitle.textContent = 'Edit Customer';
+        modalContent.innerHTML = `
+          <form class="needs-validation" id="adminEditCustomerForm" novalidate data-customer-id="${user.id}">
+            <div class="row g-3">
+              <div class="col-12"><label class="form-label" for="customerEditName">Customer Name</label><input type="text" id="customerEditName" class="form-control" value="${user.fullName || ''}" required></div>
+              <div class="col-12"><label class="form-label" for="customerEditEmail">Email</label><input type="email" id="customerEditEmail" class="form-control" value="${user.email || ''}" required></div>
+              <div class="col-12"><label class="form-label" for="customerEditPhone">Phone</label><input type="tel" id="customerEditPhone" class="form-control" value="${user.phone || ''}" required></div>
+              <div class="col-12"><label class="form-label" for="customerEditAddress">Address</label><input type="text" id="customerEditAddress" class="form-control" value="${address}" required></div>
+              <div class="col-md-6"><label class="form-label" for="customerEditStatus">Status</label><select class="form-select" id="customerEditStatus" required><option value="Active" ${status === 'Active' ? 'selected' : ''}>Active</option><option value="Inactive" ${status === 'Inactive' ? 'selected' : ''}>Inactive</option></select></div>
+              <div class="col-md-6"><label class="form-label" for="customerEditPlan">Plan</label><select class="form-select" id="customerEditPlan" required><option value="basic" ${plan === 'Basic' ? 'selected' : ''}>Basic</option><option value="standard" ${plan === 'Standard' ? 'selected' : ''}>Standard</option><option value="premium" ${plan === 'Premium' ? 'selected' : ''}>Premium</option></select></div>
+              <div class="col-12"><label class="form-label" for="customerEditPayment">Payment Method</label><input type="text" id="customerEditPayment" class="form-control" value="${paymentMethod}" required></div>
+            </div>
+          </form>
+        `;
+        modalFooter.innerHTML = `
+          <button class="btn btn-outline-brand" type="button" data-admin-view-customer="${user.id}">Cancel</button>
+          <button class="btn btn-brand" type="button" data-admin-save-customer="${user.id}">Save</button>
+        `;
+      } else {
+        modalTitle.textContent = 'Customer Details';
+        modalContent.innerHTML = `
+          <div class="summary-row"><span>Customer Name</span><strong>${user.fullName || 'N/A'}</strong></div>
+          <div class="summary-row"><span>Email</span><strong>${user.email || 'N/A'}</strong></div>
+          <div class="summary-row"><span>Phone</span><strong>${user.phone || 'N/A'}</strong></div>
+          <div class="summary-row"><span>Address</span><strong>${address}</strong></div>
+          <div class="summary-row"><span>Plan</span><strong>${plan}</strong></div>
+          <div class="summary-row"><span>Payment Method</span><strong>${paymentMethod}</strong></div>
+          <div class="summary-row"><span>Status</span><strong>${status}</strong></div>
+          <div class="summary-row"><span>Bookings</span><strong>${bookings}</strong></div>
+          <div class="summary-row"><span>Invoices</span><strong>${invoices}</strong></div>
+        `;
+        modalFooter.innerHTML = `
+          <button class="btn btn-outline-brand" type="button" data-admin-edit-customer="${user.id}">Edit</button>
+          <button class="btn btn-outline-danger" type="button" data-admin-delete-customer="${user.id}">Delete</button>
+          <button class="btn btn-brand" type="button" data-bs-dismiss="modal">Close</button>
+        `;
+      }
+
+      bootstrap.Modal.getOrCreateInstance(modal).show();
+    };
+
     const renderAdminDashboard = () => {
       if(typeof SP_AUTH === 'undefined') return;
       
       const allBookings = SP_AUTH.getBookings();
-      const allUsers = SP_AUTH.getUsers().filter(u => u.role !== 'admin');
+      const allUsers = getAdminCustomers();
       const allCleaners = SP_AUTH.getCleaners ? SP_AUTH.getCleaners() : [];
 
       const adminBookings = document.getElementById('adminBookingsList');
@@ -726,21 +866,32 @@
       const adminUsersList = document.getElementById('adminUsersList');
       if (adminUsersList) {
          if (allUsers.length === 0) {
-            adminUsersList.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No customers found.</td></tr>';
+            adminUsersList.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No customers found.</td></tr>';
          } else {
             adminUsersList.innerHTML = '';
             allUsers.forEach(u => {
                const bookings = SP_AUTH.getBookingsForUser(u.id).length;
                const name = u.fullName || (u.firstName + ' ' + u.lastName) || 'Unknown';
+               const area = u.area || u.city || (u.address ? u.address.split(',')[0] : 'N/A');
+               const plan = formatCustomerPlan(u.plan);
+               const status = u.status || 'Active';
+               const statusClass = status.toLowerCase() === 'inactive' ? 'danger' : 'ok';
                adminUsersList.innerHTML += `
                 <tr>
-                  <td>${name}</td>
-                  <td>${u.email}</td>
-                  <td>${u.phone || 'N/A'}</td>
+                  <td><input class="form-check-input" type="checkbox" aria-label="Select customer"></td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="avatar-sm d-flex align-items-center justify-content-center rounded-circle" style="background:var(--sp-brand);color:#fff;width:36px;height:36px;">${name.charAt(0)}</div>
+                      <span><strong style="color:var(--sp-ink)">${name}</strong><small class="d-block" style="color:var(--sp-muted)">${u.email}</small></span>
+                    </div>
+                  </td>
+                  <td>${area}</td>
+                  <td>${plan}</td>
                   <td>${bookings}</td>
-                  <td>Active</td>
+                  <td>${formatMoney(u.lifetimeValue || 0)}</td>
                   <td class="text-end">
-                    <button class="btn btn-sm btn-outline-brand" data-admin-view-customer="${u.id}">View</button>
+                    <span class="status-pill ${statusClass}">${status}</span>
+                    <button class="btn btn-sm btn-outline-brand ms-2" data-admin-view-customer="${u.id}">View</button>
                   </td>
                 </tr>
               `;
@@ -774,6 +925,7 @@
          }
       }
 
+      renderCustomerStats();
       if(typeof updateKPIs === 'function') updateKPIs();
     };
 
@@ -1027,33 +1179,7 @@
        const viewCustomerBtn = e.target.closest('[data-admin-view-customer]');
        if (viewCustomerBtn) {
           const uId = viewCustomerBtn.dataset.adminViewCustomer;
-          const user = SP_AUTH.getUsers().find(u => u.id === uId);
-          if (user) {
-             const name = user.fullName || (user.firstName + ' ' + user.lastName) || 'Unknown';
-             const cBookings = SP_AUTH.getBookingsForUser(uId).length;
-             const cInvoices = SP_AUTH.getInvoicesForUser(uId).length;
-             const pMethod = user.paymentMethod ? `Card ending in ${user.paymentMethod.last4}` : 'None';
-             
-             document.getElementById('adminViewCustomerContent').innerHTML = `
-                <div class="summary-row"><span>Customer Name</span><strong>${name}</strong></div>
-                <div class="summary-row"><span>Email</span><strong>${user.email}</strong></div>
-                <div class="summary-row"><span>Phone</span><strong>${user.phone || 'N/A'}</strong></div>
-                <div class="summary-row"><span>Address</span><strong>${user.address || 'N/A'}</strong></div>
-                <div class="summary-row"><span>Registration Date</span><strong>2026-08-01</strong></div>
-                <div class="summary-row"><span>Bookings</span><strong>${cBookings}</strong></div>
-                <div class="summary-row"><span>Invoices</span><strong>${cInvoices}</strong></div>
-                <div class="summary-row"><span>Payment Method</span><strong>${pMethod}</strong></div>
-                <div class="summary-row"><span>Total Spending</span><strong>$0.00</strong></div>
-                <div class="summary-row"><span>Status</span><strong>Active</strong></div>
-             `;
-             
-             document.getElementById('adminViewCustomerFooter').innerHTML = `
-                <button class="btn btn-outline-brand" type="button" data-admin-edit-customer="${uId}">Edit</button>
-                <button class="btn btn-outline-danger" type="button" data-admin-delete-customer="${uId}">Delete</button>
-                <button class="btn btn-brand" type="button" data-bs-dismiss="modal">Close</button>
-             `;
-             bootstrap.Modal.getOrCreateInstance(document.getElementById('adminViewCustomerModal')).show();
-          }
+          renderCustomerModal(uId, 'view');
        }
 
        // --- Extra Admin Operations (Assign, Edit, Delete) ---
@@ -1121,21 +1247,44 @@
        const editCustomerBtn = e.target.closest('[data-admin-edit-customer]');
        if (editCustomerBtn) {
           const uId = editCustomerBtn.dataset.adminEditCustomer;
-          let users = SP_AUTH.getUsers();
-          const user = users.find(u => u.id === uId);
-          if (user) {
-             const newName = prompt('Edit Customer Name:', user.fullName || (user.firstName + ' ' + user.lastName) || '');
-             if (newName !== null) {
-                const newPhone = prompt('Edit Customer Phone:', user.phone || '');
-                if (newPhone !== null) {
-                   user.fullName = newName;
-                   user.phone = newPhone;
-                   localStorage.setItem('sparklepro_users', JSON.stringify(users));
-                   renderAdminDashboard();
-                   showGlobalToast("Customer updated successfully.");
-                   bootstrap.Modal.getInstance(document.getElementById('adminViewCustomerModal')).hide();
-                }
-             }
+          renderCustomerModal(uId, 'edit');
+       }
+
+       // Save Customer
+       const saveCustomerBtn = e.target.closest('[data-admin-save-customer]');
+       if (saveCustomerBtn) {
+          const form = document.getElementById('adminEditCustomerForm');
+          if (form) {
+             form.classList.add('was-validated');
+             if (!form.checkValidity()) return;
+             const userId = form.dataset.customerId;
+             const users = SP_AUTH.getUsers();
+             const user = users.find((u) => u.id === userId);
+             if (!user) return;
+             const fullName = document.getElementById('customerEditName').value.trim();
+             const email = document.getElementById('customerEditEmail').value.trim().toLowerCase();
+             const phone = document.getElementById('customerEditPhone').value.trim();
+             const address = document.getElementById('customerEditAddress').value.trim();
+             const status = document.getElementById('customerEditStatus').value;
+             const plan = document.getElementById('customerEditPlan').value;
+             const paymentMethod = document.getElementById('customerEditPayment').value.trim();
+             const [firstName, ...rest] = fullName.split(' ');
+             const updated = {
+               ...user,
+               fullName,
+               firstName: firstName || user.firstName,
+               lastName: rest.join(' ') || user.lastName,
+               email,
+               phone,
+               address,
+               status,
+               plan,
+               paymentMethod
+             };
+             saveAdminUsers(users.map((u) => (u.id === userId ? updated : u)));
+             renderAdminDashboard();
+             renderCustomerModal(userId, 'view');
+             showGlobalToast('Customer updated successfully.');
           }
        }
 
@@ -1143,14 +1292,11 @@
        const deleteCustomerBtn = e.target.closest('[data-admin-delete-customer]');
        if (deleteCustomerBtn) {
           const uId = deleteCustomerBtn.dataset.adminDeleteCustomer;
-          if (confirm('Are you absolutely sure you want to delete this customer? This action cannot be undone.')) {
-             let users = SP_AUTH.getUsers();
-             users = users.filter(u => u.id !== uId);
-             localStorage.setItem('sparklepro_users', JSON.stringify(users));
-             
+          if (confirm('Are you sure you want to delete this customer? This action cannot be undone.')) {
+             removeUserById(uId);
              renderAdminDashboard();
-             showGlobalToast("Customer deleted successfully.");
-             bootstrap.Modal.getInstance(document.getElementById('adminViewCustomerModal')).hide();
+             showGlobalToast('Customer deleted successfully.');
+             bootstrap.Modal.getInstance(document.getElementById('adminViewCustomerModal'))?.hide();
           }
        }
     });
