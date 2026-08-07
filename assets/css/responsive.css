@@ -7,6 +7,7 @@
   .dash-sidebar { width: 232px; flex-basis: 232px; }
 }
 @media (max-width: 991.98px) {
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 40px; }
   .hero { text-align: center; }
   .hero-lead, .hero-trust { margin-inline: auto; justify-content: center; }
   .hero-actions { justify-content: center; }
@@ -38,6 +39,12 @@
   .map-embed { height: 320px; }
 }
 @media (max-width: 575.98px) {
+  .site-footer { padding-top: 60px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { margin-top: 40px; padding: 24px 0; }
+  .footer-bottom ul { justify-content: center; gap: .75rem 1rem; }
+  .footer-subscribe-row { flex-direction: column; gap: 10px; }
+  .footer-newsletter .form-control, .footer-newsletter .btn { border-radius: var(--sp-radius-sm); }
   .btn { width: 100%; }
   .btn-inline, .filter-btn, .icon-btn, .input-group .btn, .share-row a, .pagination .page-link { width: auto; }
   .hero-actions { flex-direction: column; }

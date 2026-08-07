@@ -245,7 +245,7 @@
     }
 
     /* Form validation + demo submit state -------------------- */
-    document.querySelectorAll(".needs-validation:not(#loginForm):not(#registerForm):not(#profileForm):not(#settingsForm):not(#bookingForm)").forEach((form) => {
+    document.querySelectorAll(".needs-validation:not(#loginForm):not(#registerForm):not(#profileForm):not(#settingsForm):not(#bookingForm):not(.footer-newsletter)").forEach((form) => {
       form.addEventListener("submit", (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -272,6 +272,29 @@
             }
           }, 1200);
         }
+      });
+    });
+
+    document.querySelectorAll(".footer-newsletter").forEach((form) => {
+      const input = form.querySelector('input[type="email"]');
+      const message = form.querySelector(".footer-newsletter-message");
+      if (!input || !message) return;
+      const show = (text, type) => {
+        message.textContent = text;
+        message.hidden = false;
+        message.className = `footer-newsletter-message is-visible is-${type}`;
+        input.setAttribute("aria-invalid", String(type === "error"));
+      };
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const email = input.value.trim();
+        if (!email) { show("Please enter your email address.", "error"); input.focus(); return; }
+        if (!input.validity.valid) { show("Please enter a valid email address.", "error"); input.focus(); return; }
+        form.reset();
+        show("✓ You are subscribed!", "success");
+      });
+      input.addEventListener("input", () => {
+        if (message.classList.contains("is-error")) { message.hidden = true; message.className = "footer-newsletter-message"; input.removeAttribute("aria-invalid"); }
       });
     });
 
