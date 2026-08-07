@@ -38,108 +38,17 @@
   <link rel="stylesheet" href="assets/css/rtl.css">
 </head>
 
-<body>
-  <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="preloader-bubble"></div><span class="visually-hidden">Loading</span>
-  </div>
+<body class="auth-page">
+  <div class="preloader" id="preloader" aria-hidden="true"><div class="preloader-bubble"></div><span class="visually-hidden">Loading</span></div>
   <a class="skip-link" href="#main">Skip to main content</a>
-  <div class="auth-wrap">
-    <section class="auth-visual" aria-label="About SparklePro">
-      <a class="navbar-brand" href="index.html"><svg class="brand-mark" width="38" height="38" viewBox="0 0 48 48"
-          role="img" aria-hidden="true" focusable="false">
-          <defs>
-            <linearGradient id="spGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#12b7a6" />
-              <stop offset="100%" stop-color="#2563eb" />
-            </linearGradient>
-          </defs>
-          <path d="M24 3c7 9 13 14.6 13 22.2C37 33.9 31.1 40 24 40S11 33.9 11 25.2C11 17.6 17 12 24 3Z"
-            fill="url(#spGrad)" />
-          <path d="M24 12c-4.2 3.9-6.6 7.6-6.6 11.6 0 1 .1 2 .4 2.9C19.9 21 22 17.4 24 12Z" fill="#fff" opacity=".65" />
-          <circle cx="38.5" cy="11.5" r="3.2" fill="#f4b740" />
-          <circle cx="9.5" cy="14.5" r="2.1" fill="#f4b740" opacity=".8" />
-        </svg><span class="brand-text" style="color:#fff">Sparkle<span style="color:#fff">Pro</span></span></a>
-      <div>
-        <h2>Your home, handled.</h2>
-        <p style="color:rgba(255,255,255,.88)">Track every visit, download invoices and message your crew from one
-          account.</p>
-        <img src="assets/images/hero/hero-cleaning.webp" width="640" height="400" loading="lazy"
-          alt="SparklePro cleaning professional at work">
-      </div>
-      <p class="mb-0" style="color:rgba(255,255,255,.8);font-size:.9rem"><i class="bi bi-star-fill"
-          aria-hidden="true"></i> Rated 4.9 by 3,400 verified customers</p>
-    </section>
-    <main id="main" class="auth-panel">
-      <div class="auth-card">
-        <h1 class="h3" id="authHeading">Welcome back</h1>
-        <p class="section-sub mb-4" id="authSub">Sign in to manage your bookings, invoices and preferences.</p>
-
-        <ul class="nav nav-pills gap-2 mb-4" role="tablist">
-          <li class="nav-item" role="presentation"><button class="filter-btn is-active active" id="customerTabBtn"
-              data-bs-toggle="tab" data-bs-target="#customerLoginPane" type="button" role="tab" aria-selected="true"
-              aria-controls="customerLoginPane">Customer Login</button></li>
-          <li class="nav-item" role="presentation"><button class="filter-btn" id="adminTabBtn" data-bs-toggle="tab"
-              data-bs-target="#adminLoginPane" type="button" role="tab" aria-selected="false"
-              aria-controls="adminLoginPane">Admin Login</button></li>
-        </ul>
-
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="customerLoginPane" role="tabpanel"
-            aria-labelledby="customerTabBtn">
-            <form id="loginForm" class="needs-validation" novalidate>
-              <div id="loginError" class="alert alert-danger" role="alert" hidden>Invalid Email or Password</div>
-              <div class="mb-3"><label class="form-label" for="loginEmail">Email address</label>
-                <input type="email" class="form-control" id="loginEmail" autocomplete="email" required>
-                <div class="invalid-feedback">Enter a valid email address.</div>
-              </div>
-              <div class="mb-3"><label class="form-label" for="loginPass">Password</label>
-                <input type="password" class="form-control" id="loginPass" autocomplete="current-password" minlength="8"
-                  required>
-                <div class="invalid-feedback">Password must be at least 8 characters.</div>
-              </div>
-              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="remember"><label
-                    class="form-check-label" for="remember">Remember me</label></div>
-                <a href="forgot-password.html">Forgot password?</a>
-              </div>
-              <button class="btn btn-brand w-100" type="submit">Sign in</button>
-              <div id="successMessage" class="alert alert-success mt-3 mb-0" role="status" tabindex="-1" data-form-alert
-                hidden>Signed in. Redirecting to your dashboard.</div>
-            </form>
-
-            <p class="text-center mt-4 mb-0">Don't have an account? <a href="register.html">Create Customer Account</a>
-            </p>
-          </div>
-          <div class="tab-pane fade" id="adminLoginPane" role="tabpanel" aria-labelledby="adminTabBtn">
-            <form id="adminLoginForm" class="needs-validation" novalidate>
-              <div id="adminLoginError" class="alert alert-danger" role="alert" hidden>Invalid Email or Password</div>
-              <div class="mb-3"><label class="form-label" for="adminEmail">Admin email</label>
-                <input type="email" class="form-control" id="adminEmail" autocomplete="email" required>
-                <div class="invalid-feedback">Enter a valid email address.</div>
-              </div>
-              <div class="mb-3"><label class="form-label" for="adminPass">Password</label>
-                <input type="password" class="form-control" id="adminPass" autocomplete="current-password" minlength="8"
-                  required>
-                <div class="invalid-feedback">Password must be at least 8 characters.</div>
-              </div>
-              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="adminRemember"><label
-                    class="form-check-label" for="adminRemember">Remember me</label></div>
-                <a href="forgot-password.html">Forgot password?</a>
-              </div>
-              <button class="btn btn-brand w-100" type="submit">Admin Sign In</button>
-              <div id="adminSuccessMessage" class="alert alert-success mt-3 mb-0" role="status" tabindex="-1"
-                data-form-alert hidden>Signed in. Redirecting to the admin dashboard.</div>
-            </form>
-            <div class="alert alert-secondary mt-3 mb-0 small"><strong>Demo admin</strong><br>admin@sparklepro.com
-              &middot; admin123</div>
-            <p class="text-center mt-4 mb-0 small" style="color:var(--sp-muted)">Only administrators are allowed to
-              access this area.</p>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
+  <div class="auth-tools" aria-label="Display controls"><button class="icon-btn" type="button" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false"><i class="bi bi-moon-stars" aria-hidden="true"></i></button><button class="icon-btn dir-toggle" type="button" id="dirToggle" aria-label="Switch to right to left layout"><span aria-hidden="true">RTL</span></button></div>
+  <div class="auth-wrap"><main id="main" class="auth-panel"><section class="auth-card text-center" aria-labelledby="authHeading">
+    <a class="auth-brand" href="index.html" aria-label="SparklePro home"><img src="assets/images/logo/sparklepro-logo.svg" width="182" height="46" alt="SparklePro"></a>
+    <h1 class="h3 mb-2" id="authHeading">Welcome Back</h1><p class="section-sub mb-0" id="authSub">Sign in to manage your bookings, invoices and preferences.</p>
+    <ul class="nav auth-tabs" role="tablist"><li class="nav-item" role="presentation"><button class="auth-tab active" id="customerTabBtn" data-bs-toggle="tab" data-bs-target="#customerLoginPane" type="button" role="tab" aria-selected="true" aria-controls="customerLoginPane">Customer Login</button></li><li class="nav-item" role="presentation"><button class="auth-tab" id="adminTabBtn" data-bs-toggle="tab" data-bs-target="#adminLoginPane" type="button" role="tab" aria-selected="false" aria-controls="adminLoginPane">Admin Login</button></li></ul>
+    <div class="tab-content text-start"><div class="tab-pane fade show active" id="customerLoginPane" role="tabpanel" aria-labelledby="customerTabBtn"><form id="loginForm" class="needs-validation" novalidate><div id="loginError" class="alert alert-danger" role="alert" hidden>Invalid Email or Password</div><div class="mb-3"><label class="form-label" for="loginEmail">Email</label><div class="auth-input"><i class="bi bi-envelope" aria-hidden="true"></i><input type="email" class="form-control" id="loginEmail" autocomplete="email" placeholder="you@example.com" required></div><div class="invalid-feedback">Enter a valid email address.</div></div><div class="mb-3"><label class="form-label" for="loginPass">Password</label><div class="auth-input"><i class="bi bi-lock" aria-hidden="true"></i><input type="password" class="form-control" id="loginPass" autocomplete="current-password" placeholder="Enter your password" minlength="8" required></div><div class="invalid-feedback">Password must be at least 8 characters.</div></div><div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2"><div class="form-check"><input class="form-check-input" type="checkbox" id="remember"><label class="form-check-label" for="remember">Remember me</label></div><a href="forgot-password.html">Forgot password?</a></div><button class="btn auth-submit w-100" type="submit">Sign In</button><div id="successMessage" class="alert alert-success mt-3 mb-0" role="status" tabindex="-1" data-form-alert hidden>Signed in. Redirecting to your dashboard.</div></form><div class="auth-divider">or</div><p class="auth-footer text-center mb-0">Don't have an account? <a href="register.html">Create Account</a></p></div>
+    <div class="tab-pane fade" id="adminLoginPane" role="tabpanel" aria-labelledby="adminTabBtn"><form id="adminLoginForm" class="needs-validation" novalidate><div id="adminLoginError" class="alert alert-danger" role="alert" hidden>Invalid Email or Password</div><div class="mb-3"><label class="form-label" for="adminEmail">Admin Email</label><div class="auth-input"><i class="bi bi-envelope" aria-hidden="true"></i><input type="email" class="form-control" id="adminEmail" autocomplete="email" placeholder="admin@sparklepro.com" required></div><div class="invalid-feedback">Enter a valid email address.</div></div><div class="mb-3"><label class="form-label" for="adminPass">Password</label><div class="auth-input"><i class="bi bi-lock" aria-hidden="true"></i><input type="password" class="form-control" id="adminPass" autocomplete="current-password" placeholder="Enter your password" minlength="8" required></div><div class="invalid-feedback">Password must be at least 8 characters.</div></div><div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2"><div class="form-check"><input class="form-check-input" type="checkbox" id="adminRemember"><label class="form-check-label" for="adminRemember">Remember me</label></div><a href="forgot-password.html">Forgot password?</a></div><button class="btn auth-submit w-100" type="submit">Admin Sign In</button><div id="adminSuccessMessage" class="alert alert-success mt-3 mb-0" role="status" tabindex="-1" data-form-alert hidden>Signed in. Redirecting to the admin dashboard.</div></form><div class="alert alert-secondary mt-3 mb-0 small text-start"><strong>Demo admin</strong><br>admin@sparklepro.com &middot; admin123</div></div></div>
+  </section></main></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
@@ -151,6 +60,4 @@
   <script src="assets/js/auth.js" defer></script>
   <script src="assets/js/rtl.js" defer></script>
   <script src="assets/js/main.js" defer></script>
-</body>
-
-</html>
+</body></html>

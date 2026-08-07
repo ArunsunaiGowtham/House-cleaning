@@ -15,6 +15,7 @@
   --sp-shadow-lg: 0 34px 70px -30px rgba(0, 0, 0, .9);
   color-scheme: dark;
 }
+
 [data-bs-theme="dark"] body { background: var(--sp-bg); color: var(--sp-body); }
 [data-bs-theme="dark"] .topbar,
 [data-bs-theme="dark"] .site-footer,
