@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create an Account | SparklePro</title>
+  <meta name="description" content="Create a SparklePro account to book cleaners, track visits and manage invoices online.">
+  <link rel="canonical" href="register.html">
+  <meta name="theme-color" content="#12b7a6">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SparklePro">
+  <meta property="og:title" content="Create an Account | SparklePro">
+  <meta property="og:description" content="Create a SparklePro account to book cleaners, track visits and manage invoices online.">
+  <meta property="og:image" content="assets/images/hero/hero-cleaning.webp">
+  <meta property="og:url" content="register.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Create an Account | SparklePro">
+  <meta name="twitter:description" content="Create a SparklePro account to book cleaners, track visits and manage invoices online.">
+  <meta name="twitter:image" content="assets/images/hero/hero-cleaning.webp">
+  <link rel="icon" href="assets/images/logo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/choices.js@10/public/assets/styles/choices.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dark.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+</head>
+<body>
+<div class="preloader" id="preloader" aria-hidden="true"><div class="preloader-bubble"></div><span class="visually-hidden">Loading</span></div>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="auth-wrap">
+  <section class="auth-visual" aria-label="About SparklePro">
+    <a class="navbar-brand" href="index.html"><svg class="brand-mark" width="38" height="38" viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+  <defs><linearGradient id="spGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#12b7a6"/><stop offset="100%" stop-color="#2563eb"/></linearGradient></defs>
+  <path d="M24 3c7 9 13 14.6 13 22.2C37 33.9 31.1 40 24 40S11 33.9 11 25.2C11 17.6 17 12 24 3Z" fill="url(#spGrad)"/>
+  <path d="M24 12c-4.2 3.9-6.6 7.6-6.6 11.6 0 1 .1 2 .4 2.9C19.9 21 22 17.4 24 12Z" fill="#fff" opacity=".65"/>
+  <circle cx="38.5" cy="11.5" r="3.2" fill="#f4b740"/><circle cx="9.5" cy="14.5" r="2.1" fill="#f4b740" opacity=".8"/>
+</svg><span class="brand-text" style="color:#fff">Sparkle<span style="color:#fff">Pro</span></span></a>
+    <div>
+      <h2>Booked in under a minute.</h2>
+      <p style="color:rgba(255,255,255,.88)">Fixed prices, free rescheduling and the same trusted technician every visit.</p>
+      <img src="assets/images/hero/commercial-hero.webp" width="640" height="400" loading="lazy" alt="SparklePro cleaning professional at work">
+    </div>
+    <p class="mb-0" style="color:rgba(255,255,255,.8);font-size:.9rem"><i class="bi bi-star-fill" aria-hidden="true"></i> Rated 4.9 by 3,400 verified customers</p>
+  </section>
+  <main id="main" class="auth-panel">
+    <div class="auth-card">
+      <h1 class="h3">Create your account</h1>
+      <p class="section-sub mb-4">Book in 60 seconds and manage everything from your dashboard.</p>
+
+    <form id="registerForm" class="needs-validation" novalidate>
+      <div class="row g-3">
+        <div id="registerError" class="col-12 alert alert-danger" role="alert" hidden></div>
+        <div class="col-md-6"><label class="form-label" for="regFirstName">First name</label><input class="form-control" id="regFirstName" autocomplete="given-name" required><div class="invalid-feedback">Please enter your first name.</div></div>
+        <div class="col-md-6"><label class="form-label" for="regLastName">Last name</label><input class="form-control" id="regLastName" autocomplete="family-name" required><div class="invalid-feedback">Please enter your last name.</div></div>
+        <div class="col-12"><label class="form-label" for="regEmail">Email address</label><input type="email" class="form-control" id="regEmail" autocomplete="email" required><div class="invalid-feedback">Enter a valid email address.</div></div>
+        <div class="col-12"><label class="form-label" for="regPhone">Phone number</label><input type="tel" class="form-control" id="regPhone" autocomplete="tel" required><div class="invalid-feedback">Enter a contact number.</div></div>
+        <div class="col-md-6"><label class="form-label" for="regPass">Password</label><input type="password" class="form-control" id="regPass" autocomplete="new-password" minlength="8" required><div class="invalid-feedback">Use at least 8 characters.</div></div>
+        <div class="col-md-6"><label class="form-label" for="regPass2">Confirm password</label><input type="password" class="form-control" id="regPass2" autocomplete="new-password" minlength="8" required><div class="invalid-feedback">Please confirm your password.</div></div>
+        <div class="col-12 form-check ms-2"><input class="form-check-input" type="checkbox" id="regTerms" required><label class="form-check-label" for="regTerms">I agree to the terms of service and privacy policy.</label><div class="invalid-feedback">You must accept the terms.</div></div>
+        <div class="col-12"><button class="btn btn-brand w-100" type="submit">Create account</button></div>
+        <div class="col-12"><div id="successMessage" class="alert alert-success mb-0" role="status" tabindex="-1" data-form-alert hidden>Account created. Check your inbox to verify your email.</div></div>
+      </div>
+      <p class="text-center mt-4 mb-0">Already registered? <a href="login.html">Sign in instead</a></p>
+    </form>
+    </div>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/isotope-layout@3/dist/isotope.pkgd.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs@1.5.0/dist/purecounter_vanilla.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js@10/public/assets/scripts/choices.min.js" defer></script>
+<script src="assets/js/darkmode.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script src="assets/js/rtl.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

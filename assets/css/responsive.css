@@ -1,0 +1,50 @@
+/* SparklePro - responsive refinements (mobile first breakpoints). */
+@media (max-width: 1399.98px) {
+  .hero-float { inset-inline-start: -2%; }
+}
+@media (max-width: 1199.98px) {
+  :root { --sp-section-y: clamp(3rem, 6vw, 5rem); }
+  .dash-sidebar { width: 232px; flex-basis: 232px; }
+}
+@media (max-width: 991.98px) {
+  .hero { text-align: center; }
+  .hero-lead, .hero-trust { margin-inline: auto; justify-content: center; }
+  .hero-actions { justify-content: center; }
+  .hero-media { margin-top: 2.5rem; }
+  .hero-float { inset-inline-start: 4%; }
+  .why-media { padding-inline-end: 2rem; margin-bottom: 1rem; }
+  .why-badge { inset-inline-start: 0; }
+  .auth-wrap { grid-template-columns: 1fr; }
+  .auth-visual { display: none; }
+  .dash-shell { flex-direction: column; }
+  .dash-sidebar {
+    position: fixed; inset-block: 0; inset-inline-start: 0; z-index: 1050; width: 272px; flex-basis: auto;
+    transform: translateX(-105%); transition: transform .3s ease;
+  }
+  [dir="rtl"] .dash-sidebar { transform: translateX(105%); }
+  .dash-sidebar.is-open { transform: translateX(0); }
+  .dash-backdrop { position: fixed; inset: 0; background: rgba(6, 12, 20, .55); z-index: 1040; }
+  .summary-card { position: static; }
+}
+@media (max-width: 767.98px) {
+  :root { --sp-section-y: 3rem; --sp-radius-lg: 22px; }
+  h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+  .cta-inner { flex-direction: column; align-items: flex-start; text-align: start; }
+  .cta-actions .btn { width: 100%; }
+  .footer-bottom { flex-direction: column; text-align: center; align-items: center; }
+  .beforeafter { grid-template-columns: 1fr; }
+  .prev-next { grid-template-columns: 1fr; }
+  .table-responsive { -webkit-overflow-scrolling: touch; }
+  .map-embed { height: 320px; }
+}
+@media (max-width: 575.98px) {
+  .btn { width: 100%; }
+  .btn-inline, .filter-btn, .icon-btn, .input-group .btn, .share-row a, .pagination .page-link { width: auto; }
+  .hero-actions { flex-direction: column; }
+  .hero-float { position: static; margin-top: 1rem; max-width: none; }
+  .countdown div { min-width: 78px; padding: .8rem 1rem; }
+  .stat-num { font-size: 1.7rem; }
+}
+@media print {
+  .site-header, .site-footer, .back-to-top, .preloader { display: none !important; }
+}
