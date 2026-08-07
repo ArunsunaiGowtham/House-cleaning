@@ -185,7 +185,7 @@
   };
 
   /* ---------------------------------------------------------- */
-  /* Navbar - swap "Sign in" for an avatar + role dropdown       */
+  /* Navbar - swap "Login" for an avatar + role dropdown       */
   /* ---------------------------------------------------------- */
 
   const dropdownItems = (role, prefix) => {
@@ -240,7 +240,7 @@
     if (!session || !session.loggedIn) return;
     const prefix = rootPrefix();
     document.querySelectorAll("a.btn-outline-brand").forEach((a) => {
-      if (a.textContent.trim() === "Sign in") swapSignInButton(a, session, prefix);
+      if (a.textContent.trim() === "Login") swapSignInButton(a, session, prefix);
     });
     document.querySelectorAll("[data-auth-nav] [data-auth-name]").forEach((span) => {
       span.textContent = `${session.firstName || ""}`.trim() || session.email;
@@ -342,7 +342,7 @@
     if (customerTab && heading) {
       customerTab.addEventListener("shown.bs.tab", () => {
         heading.textContent = "Welcome back";
-        sub.textContent = "Sign in to manage your bookings, invoices and preferences.";
+        sub.textContent = "Login to manage your bookings, invoices and preferences.";
       });
     }
     if (adminTab && heading) {
