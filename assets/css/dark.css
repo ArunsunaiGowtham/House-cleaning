@@ -60,3 +60,9 @@
 [data-bs-theme="dark"] .auth-brand-logo-light { display: none; }
 [data-bs-theme="dark"] .auth-brand-logo-dark { display: block; filter: none !important; }
 [data-bs-theme="dark"] img:not(.no-dim) { filter: brightness(.94); }
+[data-bs-theme="dark"] .page-hero-bg::after { background: linear-gradient(90deg, rgba(3, 15, 25, 0.82), rgba(5, 25, 35, 0.68), rgba(3, 18, 30, 0.80)); }
+[data-bs-theme="dark"] .page-hero h1 { color: #ffffff !important; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+[data-bs-theme="dark"] .page-hero .eyebrow { color: var(--sp-brand); text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+[data-bs-theme="dark"] .page-hero .lead { color: #dbe7f3 !important; text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-weight: 500; }
+[data-bs-theme="dark"] .page-crumb .breadcrumb-item, [data-bs-theme="dark"] .page-crumb .breadcrumb-item a { color: #e5eef5; }
+[data-bs-theme="dark"] .page-crumb .breadcrumb-item.active { color: var(--sp-brand); }
