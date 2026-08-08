@@ -30,12 +30,6 @@
         notes: "Key safe code shared with office. Cat in the house, please keep the front door closed.",
         avatar: "assets/images/avatars/customer-01.webp"
       },
-      {
-        id: "seed_admin_01",
-        email: "admin@sparklepro.com", password: "admin123", role: "admin",
-        firstName: "Amelia", lastName: "Hart", phone: "+1 800 555 0110",
-        avatar: "assets/images/avatars/team-01.webp"
-      }
     ]);
   };
 
@@ -141,6 +135,22 @@
     users.push(user);
     saveUsers(users);
     setSession(user, true);
+    return { ok: true, user };
+  };
+
+  const registerAdmin = (data) => {
+    const users = getUsers();
+    if (users.some((u) => u.email.toLowerCase() === data.email.toLowerCase())) {
+      return { ok: false, message: "An account with this email already exists." };
+    }
+    const [firstName, ...lastName] = data.fullName.trim().split(/\s+/);
+    const user = {
+      id: genId(), email: data.email, password: data.password, role: "admin",
+      firstName, lastName: lastName.join(" "), phone: "",
+      avatar: "assets/images/avatars/team-01.webp"
+    };
+    users.push(user);
+    saveUsers(users);
     return { ok: true, user };
   };
 
@@ -351,6 +361,9 @@
         sub.textContent = "Restricted area for SparklePro administrators only.";
       });
     }
+    if (window.location.hash === "#admin-login" && adminTab && window.bootstrap) {
+      bootstrap.Tab.getOrCreateInstance(adminTab).show();
+    }
 
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
@@ -428,6 +441,43 @@
     document.getElementById("regPass2")?.addEventListener("input", function () { this.setCustomValidity(""); });
   };
 
+  const initAdminRegisterPage = () => {
+    const form = document.getElementById("adminRegisterForm");
+    if (!form) return;
+    const email = document.getElementById("adminRegEmail");
+    const pass = document.getElementById("adminRegPass");
+    const pass2 = document.getElementById("adminRegPass2");
+    const emailFeedback = email?.closest(".mb-3")?.querySelector(".invalid-feedback");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      pass2.setCustomValidity(pass.value !== pass2.value ? "Passwords do not match." : "");
+      if (!form.checkValidity()) { form.classList.add("was-validated"); return; }
+
+      const result = registerAdmin({
+        fullName: document.getElementById("adminRegName").value.trim(),
+        email: email.value.trim(),
+        password: pass.value
+      });
+      if (!result.ok) {
+        email.setCustomValidity(result.message);
+        if (emailFeedback) emailFeedback.textContent = result.message;
+        form.classList.add("was-validated");
+        return;
+      }
+      const successBox = document.getElementById("adminRegisterSuccess");
+      if (successBox) { successBox.hidden = false; successBox.focus?.(); }
+      window.setTimeout(() => { window.location.href = "login.html#admin-login"; }, 750);
+    });
+
+    email?.addEventListener("input", () => {
+      email.setCustomValidity("");
+      if (emailFeedback) emailFeedback.textContent = "Enter a valid email address.";
+    });
+    pass2?.addEventListener("input", () => pass2.setCustomValidity(""));
+  };
+
   /* ---------------------------------------------------------- */
   /* Customer profile form (customer-dashboard.html)              */
   /* ---------------------------------------------------------- */
@@ -503,6 +553,7 @@
   onReady(() => {
     initLoginPage();
     initRegisterPage();
+    initAdminRegisterPage();
     initProfileForm();
     initCustomerDashboardChrome();
   });

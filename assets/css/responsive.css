@@ -27,6 +27,8 @@
   .dash-backdrop { position: fixed; inset: 0; background: rgba(6, 12, 20, .55); z-index: 1040; }
   .summary-card { position: static; }
   .contact-map-panel .map-embed { height: 460px; }
+  .blog-detail-hero { min-height: 390px; }
+  .blog-detail-hero-title { max-inline-size: 52rem; font-size: clamp(2rem, 5vw, 3rem); }
 }
 @media (max-width: 767.98px) {
   :root { --sp-section-y: 3rem; --sp-radius-lg: 22px; }
@@ -39,6 +41,9 @@
   .table-responsive { -webkit-overflow-scrolling: touch; }
   .map-embed { height: 320px; }
   .contact-map-panel .map-embed { height: 400px; }
+  .blog-detail-hero { min-height: 360px; padding-block: 3rem; }
+  .blog-detail-hero-title { max-inline-size: 100%; }
+  .blog-detail-hero-meta { gap: .6rem .85rem; }
 }
 @media (max-width: 575.98px) {
   .site-footer { padding-top: 60px; }
@@ -53,6 +58,9 @@
   .hero-float { position: static; margin-top: 1rem; max-width: none; }
   .countdown div { min-width: 78px; padding: .8rem 1rem; }
   .stat-num { font-size: 1.7rem; }
+  .blog-detail-hero { min-height: 340px; padding-block: 2.5rem; }
+  .blog-detail-hero-title { font-size: clamp(1.9rem, 8vw, 2.25rem); }
+  .blog-detail-hero-meta { font-size: .78rem; }
 }
 @media print {
   .site-header, .site-footer, .back-to-top, .preloader { display: none !important; }

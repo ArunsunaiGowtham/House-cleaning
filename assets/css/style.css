@@ -266,6 +266,23 @@ textarea.form-control { min-height: 140px; }
 .page-crumb .breadcrumb-item.active { color: var(--sp-brand); }
 .breadcrumb-item + .breadcrumb-item::before { color: var(--sp-muted); }
 
+/* Blog detail hero: shared alignment for every article title length. */
+.blog-detail-hero { min-height: 420px; }
+.blog-detail-hero-content {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: min(100%, 1200px); margin-inline: auto; text-align: center;
+}
+.blog-detail-hero-title {
+  max-inline-size: 1100px; margin: 0 auto; text-align: center;
+  overflow-wrap: break-word; text-wrap: balance;
+}
+.blog-detail-hero-meta {
+  justify-content: center; align-items: center; gap: .75rem 1rem;
+  max-inline-size: 100%; margin: 1.25rem auto 0 !important; padding-inline-start: 0;
+  list-style: none;
+}
+.blog-detail-crumb .breadcrumb { min-height: 1.7rem; align-items: center; }
+
 /* 5. Sections --------------------------------------------- */
 .service-card {
   position: relative; background: var(--sp-surface); border: 1px solid var(--sp-border);
