@@ -404,13 +404,6 @@ textarea.form-control { min-height: 140px; }
 .cta-inner p { color: rgba(255, 255, 255, .88); max-width: 34rem; }
 .cta-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
 
-.gallery-grid img { border-radius: var(--sp-radius); box-shadow: var(--sp-shadow-sm); width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform .35s ease; }
-.gallery-item { position: relative; overflow: hidden; border-radius: var(--sp-radius); display: block; }
-.gallery-item:hover img { transform: scale(1.06); }
-.gallery-item figcaption {
-  position: absolute; inset-inline: 0; inset-block-end: 0; padding: 1.4rem 1rem .9rem;
-  background: linear-gradient(to top, rgba(13, 27, 42, .82), transparent); color: #fff; font-weight: 600; font-size: .92rem;
-}
 .filter-bar { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-bottom: 2rem; }
 .filter-btn {
   border: 1px solid var(--sp-border); background: var(--sp-surface); color: var(--sp-ink);
