@@ -26,6 +26,7 @@
   .dash-sidebar.is-open { transform: translateX(0); }
   .dash-backdrop { position: fixed; inset: 0; background: rgba(6, 12, 20, .55); z-index: 1040; }
   .summary-card { position: static; }
+  .contact-map-panel .map-embed { height: 460px; }
 }
 @media (max-width: 767.98px) {
   :root { --sp-section-y: 3rem; --sp-radius-lg: 22px; }
@@ -37,6 +38,7 @@
   .prev-next { grid-template-columns: 1fr; }
   .table-responsive { -webkit-overflow-scrolling: touch; }
   .map-embed { height: 320px; }
+  .contact-map-panel .map-embed { height: 400px; }
 }
 @media (max-width: 575.98px) {
   .site-footer { padding-top: 60px; }
