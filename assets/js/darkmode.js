@@ -12,6 +12,19 @@
 
   const paint = (theme) => {
     root.setAttribute("data-bs-theme", theme);
+    document.querySelectorAll(".site-footer .footer-brand img").forEach((logo) => {
+      const lightSrc = logo.dataset.lightLogo || logo.getAttribute("src");
+      const darkSrc = logo.dataset.darkLogo || lightSrc.replace(
+        /sparklepro-logo\.svg([?#].*)?$/,
+        "sparklepro-logo-dark.svg$1"
+      );
+
+      if (darkSrc !== lightSrc) {
+        logo.dataset.lightLogo = lightSrc;
+        logo.dataset.darkLogo = darkSrc;
+        logo.setAttribute("src", theme === "dark" ? darkSrc : lightSrc);
+      }
+    });
     document.querySelectorAll("#themeToggle, [data-theme-toggle]").forEach((btn) => {
       btn.setAttribute("aria-pressed", String(theme === "dark"));
       const icon = btn.querySelector("i");
