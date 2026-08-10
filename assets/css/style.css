@@ -620,6 +620,28 @@ html[dir="rtl"] .auth-input > .form-control { direction: rtl; text-align: right;
 .contact-map-panel .map-embed { display: block; height: 560px; }
 .contact-info-card { display: flex; gap: 1rem; background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: var(--sp-radius); padding: 1.2rem; height: 100%; }
 .contact-info-card i { font-size: 1.4rem; color: var(--sp-brand); }
+.contact-input { position: relative; }
+.contact-input > i { position: absolute; inset-block-start: 50%; inset-inline-start: 1rem; z-index: 2; transform: translateY(-50%); color: var(--sp-brand-dark); pointer-events: none; }
+.contact-form .form-floating > .form-control { padding-inline-start: 2.75rem; padding-inline-end: 1rem; }
+.contact-form .form-floating > label { padding-inline-start: 2.75rem; padding-inline-end: 1rem; text-align: start; }
+.contact-form .contact-message > textarea.form-control, .contact-form .contact-message > label { padding-inline-start: 1rem; }
+.contact-form .form-select, .contact-form .choices__inner { text-align: start; }
+.contact-consent { margin-inline-start: .5rem; }
+.contact-submit { display: inline-flex; align-items: center; gap: .5rem; }
+html[dir="ltr"] .contact-form { direction: ltr; text-align: left; }
+html[dir="ltr"] .contact-input > i { left: 1rem; right: auto; }
+html[dir="ltr"] .contact-form .form-control, html[dir="ltr"] .contact-form .form-select { direction: ltr; text-align: left; }
+html[dir="ltr"] .contact-form .form-select { background-position: right .75rem center; padding-right: 2.25rem; padding-left: 1rem; }
+html[dir="ltr"] .contact-form .choices[data-type*="select-one"]::after { right: 11.5px; left: auto; }
+html[dir="rtl"] .contact-form { direction: rtl; text-align: right; }
+html[dir="rtl"] .contact-input > i { right: 1rem; left: auto; }
+html[dir="rtl"] .contact-form .form-floating > .form-control { padding-right: 2.75rem; padding-left: 1rem; }
+html[dir="rtl"] .contact-form .form-floating > label { right: 0; left: auto; padding-right: 2.75rem; padding-left: 1rem; text-align: right; transform-origin: 100% 0; }
+html[dir="rtl"] .contact-form .contact-message > textarea.form-control, html[dir="rtl"] .contact-form .contact-message > label { padding-right: 1rem; padding-left: 1rem; }
+html[dir="rtl"] .contact-form .form-control, html[dir="rtl"] .contact-form .form-select { direction: rtl; text-align: right; }
+html[dir="rtl"] .contact-form .form-select { background-position: left .75rem center; padding-left: 2.25rem; padding-right: 1rem; }
+html[dir="rtl"] .contact-form .choices { direction: rtl; text-align: right; }
+html[dir="rtl"] .contact-form .choices[data-type*="select-one"]::after { left: 11.5px; right: auto; }
 .glass-panel { background: var(--sp-glass); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, .5); border-radius: var(--sp-radius-lg); box-shadow: var(--sp-shadow); }
 .error-code { font-family: var(--sp-display); font-size: clamp(5rem, 18vw, 11rem); font-weight: 800; line-height: 1; background: var(--sp-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .countdown { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }

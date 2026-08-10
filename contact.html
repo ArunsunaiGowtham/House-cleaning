@@ -142,18 +142,18 @@
       <div class="col-lg-6" data-aos="fade-left">
         <h2>Send us a message</h2>
         <p class="section-sub mb-4">Tell us the property size and what you need. We reply with a fixed quote, usually within two working hours.</p>
-        <form class="needs-validation dash-panel h-auto" novalidate>
+        <form class="needs-validation dash-panel h-auto contact-form" novalidate>
           <div class="row g-3">
-            <div class="col-md-6"><div class="form-floating"><input class="form-control" id="ctName" placeholder="Name" required><label for="ctName">Full name</label><div class="invalid-feedback">Please enter your name.</div></div></div>
-            <div class="col-md-6"><div class="form-floating"><input type="email" class="form-control" id="ctMail" placeholder="Email" required><label for="ctMail">Email address</label><div class="invalid-feedback">Enter a valid email address.</div></div></div>
-            <div class="col-md-6"><div class="form-floating"><input type="tel" class="form-control" id="ctPhone" placeholder="Phone" required><label for="ctPhone">Phone number</label><div class="invalid-feedback">Enter a contact number.</div></div></div>
+            <div class="col-md-6"><div class="form-floating contact-input"><i class="bi bi-person" aria-hidden="true"></i><input class="form-control" id="ctName" placeholder="Name" required><label for="ctName">Full name</label><div class="invalid-feedback">Please enter your name.</div></div></div>
+            <div class="col-md-6"><div class="form-floating contact-input"><i class="bi bi-envelope" aria-hidden="true"></i><input type="email" class="form-control" id="ctMail" placeholder="Email" required><label for="ctMail">Email address</label><div class="invalid-feedback">Enter a valid email address.</div></div></div>
+            <div class="col-md-6"><div class="form-floating contact-input"><i class="bi bi-telephone" aria-hidden="true"></i><input type="tel" class="form-control" id="ctPhone" placeholder="Phone" required><label for="ctPhone">Phone number</label><div class="invalid-feedback">Enter a contact number.</div></div></div>
             <div class="col-md-6">
               <label class="form-label" for="ctService">Service needed</label>
               <select class="form-select" id="ctService" data-choices required><option value="residential-cleaning">Residential Cleaning</option><option value="apartment-cleaning">Apartment Cleaning</option><option value="deep-cleaning">Deep Cleaning</option><option value="move-in-cleaning">Move In Cleaning</option><option value="move-out-cleaning">Move Out Cleaning</option><option value="office-cleaning">Office Cleaning</option><option value="kitchen-cleaning">Kitchen Cleaning</option><option value="bathroom-cleaning">Bathroom Cleaning</option><option value="window-cleaning">Window Cleaning</option><option value="carpet-cleaning">Carpet Cleaning</option><option value="sofa-cleaning">Sofa Cleaning</option><option value="mattress-cleaning">Mattress Cleaning</option><option value="post-construction-cleaning">Post Construction Cleaning</option><option value="disinfection">Disinfection Service</option><option value="eco-friendly-cleaning">Eco Friendly Cleaning</option><option value="starter">Starter Cleaning Plan</option><option value="standard">Standard Cleaning Plan</option><option value="premium">Premium Cleaning Plan</option><option value="enterprise">Enterprise Cleaning Plan</option></select>
             </div>
-            <div class="col-12"><div class="form-floating"><textarea class="form-control" id="ctMsg" placeholder="Message" required></textarea><label for="ctMsg">How can we help?</label><div class="invalid-feedback">Please add a short message.</div></div></div>
-            <div class="col-12 form-check ms-2"><input class="form-check-input" type="checkbox" id="ctConsent" required><label class="form-check-label" for="ctConsent">I agree to be contacted about this enquiry.</label><div class="invalid-feedback">Consent is required to reply.</div></div>
-            <div class="col-12"><button class="btn btn-brand" type="submit">Send message <i class="bi bi-send" aria-hidden="true"></i></button></div>
+            <div class="col-12"><div class="form-floating contact-message"><textarea class="form-control" id="ctMsg" placeholder="Message" required></textarea><label for="ctMsg">How can we help?</label><div class="invalid-feedback">Please add a short message.</div></div></div>
+            <div class="col-12 form-check contact-consent"><input class="form-check-input" type="checkbox" id="ctConsent" required><label class="form-check-label" for="ctConsent">I agree to be contacted about this enquiry.</label><div class="invalid-feedback">Consent is required to reply.</div></div>
+            <div class="col-12"><button class="btn btn-brand contact-submit" type="submit"><i class="bi bi-send" aria-hidden="true"></i><span>Send message</span></button></div>
             <div class="col-12"><div class="alert alert-success mb-0" role="status" tabindex="-1" data-form-alert hidden>Message sent. A supervisor will reply within two working hours.</div></div>
           </div>
         </form>
