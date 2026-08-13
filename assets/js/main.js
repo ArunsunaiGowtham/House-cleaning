@@ -12,6 +12,54 @@
   });
 
   onReady(() => {
+    /* Primary navigation current-page state ----------------- */
+    const getPageKey = (url) => {
+      const pathname = new URL(url, window.location.href).pathname
+        .replace(/\/+$/, "")
+        .toLowerCase();
+      const filename = pathname.split("/").pop();
+
+      return !filename || filename === "index.html" || filename === "index"
+        ? "index"
+        : filename.replace(/\.html$/, "");
+    };
+
+    const setActiveNavLink = () => {
+      const currentPage = getPageKey(window.location.href);
+      const parentPage = currentPage.startsWith("blog-details-")
+        ? "blog"
+        : currentPage === "service-details"
+          ? "services"
+          : currentPage;
+
+      document.querySelectorAll("#siteHeader .navbar-nav").forEach((nav) => {
+        const links = nav.querySelectorAll(":scope > .nav-item > .nav-link");
+
+        links.forEach((link) => {
+          link.classList.remove("active");
+          link.removeAttribute("aria-current");
+        });
+
+        const activeLink = Array.from(links).find((link) => {
+          const href = link.getAttribute("href");
+          const dropdownPages = Array.from(
+            link.parentElement.querySelectorAll(":scope > .dropdown-menu .dropdown-item[href]")
+          ).map((item) => getPageKey(item.href));
+
+          return dropdownPages.includes(parentPage) ||
+            (href && !href.startsWith("#") && getPageKey(link.href) === parentPage);
+        });
+
+        if (activeLink) {
+          activeLink.classList.add("active");
+          activeLink.setAttribute("aria-current", "page");
+        }
+      });
+    };
+
+    setActiveNavLink();
+    window.addEventListener("pageshow", setActiveNavLink);
+
     /* Animations --------------------------------------------- */
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (window.AOS) AOS.init({ duration: 700, once: true, offset: 60, disable: reduced });
