@@ -60,6 +60,43 @@
     setActiveNavLink();
     window.addEventListener("pageshow", setActiveNavLink);
 
+    /* Use a home-and-sparkle mark everywhere the compact brand mark appears. */
+    const cleanMark = '<defs><linearGradient id="spCleanGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#12b7a6"/><stop offset="100%" stop-color="#2563eb"/></linearGradient></defs><path d="M6 24 24 8l18 16v14a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V24Z" fill="url(#spCleanGrad)"/><path d="M18 42V30h12v12M14 25h7m6 0h7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="m39 6 1.5 4.5L45 12l-4.5 1.5L39 18l-1.5-4.5L33 12l4.5-1.5L39 6Z" fill="#f4b740"/>';
+    document.querySelectorAll(".brand-mark").forEach((mark) => { mark.innerHTML = cleanMark; });
+
+    document.querySelectorAll('.dropdown-item[href="index.html"]').forEach((link) => { link.textContent = "Home 1"; });
+    document.querySelectorAll('.dropdown-item[href="home-cleaning.html"]').forEach((link) => { link.textContent = "Home 2"; });
+
+    document.querySelectorAll(".auth-social-google, .auth-social-apple").forEach((button) => {
+      const provider = button.classList.contains("auth-social-google") ? "Google" : "Apple";
+      button.dataset.provider = provider;
+      button.setAttribute("aria-label", `Continue with ${provider} (demo)`);
+      button.lastChild.textContent = ` Continue with ${provider}`;
+    });
+
+    /* Keep statistics meaningful after their number animation finishes. */
+    const statSuffixes = { "Homes cleaned": "+", "Vetted cleaners": "+", "Average rating": "/5", "Years of service": "+" };
+    document.querySelectorAll(".stats-band .stat-card").forEach((card) => {
+      const label = card.querySelector("p")?.textContent.trim();
+      const number = card.querySelector(".stat-num");
+      if (!number || !statSuffixes[label] || number.parentElement.classList.contains("stat-number-wrap")) return;
+      const wrap = document.createElement("div"); wrap.className = "stat-number-wrap";
+      number.before(wrap); wrap.append(number);
+      const suffix = document.createElement("span"); suffix.className = "stat-suffix"; suffix.textContent = statSuffixes[label]; wrap.append(suffix);
+    });
+
+    /* Every service card exposes a direct, keyboard-accessible detail action. */
+    document.querySelectorAll("[data-service-name] .service-foot").forEach((foot) => {
+      const key = foot.closest("[data-service-name]")?.dataset.serviceName;
+      const detail = foot.querySelector(".more");
+      if (!key || !detail) return;
+      const action = document.createElement("a");
+      action.className = "btn btn-outline-brand service-cta";
+      action.href = `service-details.html?service=${encodeURIComponent(key)}`;
+      action.textContent = "View details";
+      detail.replaceWith(action);
+    });
+
     /* Animations --------------------------------------------- */
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (window.AOS) AOS.init({ duration: 700, once: true, offset: 60, disable: reduced });

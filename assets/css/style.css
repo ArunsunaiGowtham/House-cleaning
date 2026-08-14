@@ -745,6 +745,41 @@ html[dir="rtl"] .footer-contact a[href^="mailto:"] { text-align: right; }
 @keyframes footer-message-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 .footer-bottom { align-items: center; margin-top: 60px; padding: 30px 0; border-top: 1px solid #e5e7eb; color: #64748b; }
 
+/* 2026 UI refinement: home-first heroes, contained actions and direction-safe footer. */
+body:has(.hero) .hero { background: var(--sp-bg); }
+body:has(.hero) .hero-blob { display: none; }
+.hero-actions .btn { min-height: 44px; padding: .58rem 1.2rem; font-size: .92rem; }
+.hero-actions .btn-brand { padding-inline: 1.35rem; }
+.stats-band .stat-card { display: grid; place-items: center; gap: .25rem; }
+.stat-num { line-height: 1.1; }
+.stat-suffix { font: 800 clamp(1.25rem, 2vw, 1.7rem)/1 var(--sp-display); color: var(--sp-ink); margin-inline-start: .1rem; }
+.stats-band .stat-card > div { display: flex; align-items: baseline; justify-content: center; }
+.pricing-card, .price-card { height: 100%; display: flex; flex-direction: column; min-width: 0; }
+.pricing-card .btn, .price-card .btn { margin-top: auto; max-width: 100%; }
+.pricing-card *, .price-card * { overflow-wrap: anywhere; }
+.service-foot .service-cta { position: relative; z-index: 2; padding: .4rem .78rem; min-height: 36px; font-size: .8rem; }
+.site-footer { margin-top: 0; }
+.about-testimonials { padding-top: clamp(2.5rem, 4vw, 4rem); }
+.footer-grid { align-items: start; }
+.footer-column { text-align: start; }
+.footer-social { justify-content: flex-start; }
+html[dir="rtl"] .footer-social { justify-content: flex-start; }
+.auth-card { border: 1px solid rgba(148, 163, 184, .52); border-radius: var(--sp-radius-lg); padding: clamp(1.25rem, 3vw, 2rem); background: rgba(255,255,255,.98); box-shadow: var(--sp-shadow-lg); }
+.auth-page .form-control, .auth-page .form-check-input { border-color: #94a3b8; }
+.auth-page .form-control { border-width: 1.5px; }
+.auth-page .auth-divider { border-color: #cbd5e1; }
+.auth-social { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin: 1rem 0; }
+.auth-social .btn { min-height: 44px; padding-inline: .65rem; font-size: .87rem; white-space: nowrap; }
+.auth-social-google { color: #334155; background: #fff; border-color: #cbd5e1; }
+.auth-social-apple { color: #fff; background: #111827; border-color: #111827; }
+.auth-footer a { color: var(--sp-brand) !important; font-weight: 700; }
+@media (max-width: 575.98px) {
+  .hero-actions { width: 100%; }
+  .hero-actions .btn { width: 100%; }
+  .auth-social { grid-template-columns: 1fr; }
+  .site-footer { padding-top: 48px; }
+}
+
 @media (max-width: 991.98px) {
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
 }
