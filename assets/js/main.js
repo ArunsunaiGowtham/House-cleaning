@@ -61,7 +61,7 @@
     window.addEventListener("pageshow", setActiveNavLink);
 
     /* Use a home-and-sparkle mark everywhere the compact brand mark appears. */
-    const cleanMark = '<defs><linearGradient id="spCleanGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#12b7a6"/><stop offset="100%" stop-color="#2563eb"/></linearGradient></defs><path d="M6 24 24 8l18 16v14a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V24Z" fill="url(#spCleanGrad)"/><path d="M18 42V30h12v12M14 25h7m6 0h7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="m39 6 1.5 4.5L45 12l-4.5 1.5L39 18l-1.5-4.5L33 12l4.5-1.5L39 6Z" fill="#f4b740"/>';
+    const cleanMark = '<path d="M6 24 24 8l18 16v14a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V24Z" fill="#12b7a6"/><path d="M18 42V30h12v12M14 25h7m6 0h7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="m39 6 1.5 4.5L45 12l-4.5 1.5L39 18l-1.5-4.5L33 12l4.5-1.5L39 6Z" fill="#f4b740"/>';
     document.querySelectorAll(".brand-mark").forEach((mark) => { mark.innerHTML = cleanMark; });
 
     document.querySelectorAll('.dropdown-item[href="index.html"]').forEach((link) => { link.textContent = "Home 1"; });
@@ -85,15 +85,16 @@
       const suffix = document.createElement("span"); suffix.className = "stat-suffix"; suffix.textContent = statSuffixes[label]; wrap.append(suffix);
     });
 
-    /* Every service card exposes a direct, keyboard-accessible detail action. */
+    /* Homepage cards retain their detail route; the services catalogue uses its
+       explicit booking controls supplied in its markup. */
     document.querySelectorAll("[data-service-name] .service-foot").forEach((foot) => {
       const key = foot.closest("[data-service-name]")?.dataset.serviceName;
       const detail = foot.querySelector(".more");
       if (!key || !detail) return;
       const action = document.createElement("a");
       action.className = "btn btn-outline-brand service-cta";
-      action.href = `service-details.html?service=${encodeURIComponent(key)}`;
-      action.textContent = "View details";
+      action.href = `booking.html?service=${encodeURIComponent(key)}`;
+      action.textContent = "Book service";
       detail.replaceWith(action);
     });
 

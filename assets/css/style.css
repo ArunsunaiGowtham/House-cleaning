@@ -219,7 +219,6 @@ textarea.form-control { min-height: 140px; }
   position: relative; overflow: hidden; padding-block: clamp(3rem, 7vw, 6rem);
   background: var(--sp-gradient-soft);
 }
-.hero-blob { display: none !important; }
 .hero h1 span { background: var(--sp-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-lead { font-size: 1.1rem; max-width: 34rem; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-block: 1.6rem; }
@@ -743,7 +742,6 @@ html[dir="rtl"] .footer-contact a[href^="mailto:"] { text-align: right; }
 
 /* 2026 UI refinement: home-first heroes, contained actions and direction-safe footer. */
 body:has(.hero) .hero { background: var(--sp-bg); }
-body:has(.hero) .hero-blob { display: none; }
 .hero-actions .btn { min-height: 44px; padding: .58rem 1.2rem; font-size: .92rem; }
 .hero-actions .btn-brand { padding-inline: 1.35rem; }
 .stats-band .stat-card { display: grid; place-items: center; gap: .25rem; }
