@@ -219,11 +219,7 @@ textarea.form-control { min-height: 140px; }
   position: relative; overflow: hidden; padding-block: clamp(3rem, 7vw, 6rem);
   background: var(--sp-gradient-soft);
 }
-.hero-blob {
-  position: absolute; inset-block-start: -18%; inset-inline-end: -12%; width: 46vw; height: 46vw;
-  background: radial-gradient(circle at 30% 30%, rgba(18, 183, 166, .3), rgba(37, 99, 235, .12) 60%, transparent 70%);
-  filter: blur(10px); pointer-events: none;
-}
+.hero-blob { display: none !important; }
 .hero h1 span { background: var(--sp-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-lead { font-size: 1.1rem; max-width: 34rem; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-block: 1.6rem; }
@@ -759,7 +755,7 @@ body:has(.hero) .hero-blob { display: none; }
 .pricing-card *, .price-card * { overflow-wrap: anywhere; }
 .service-foot .service-cta { position: relative; z-index: 2; padding: .4rem .78rem; min-height: 36px; font-size: .8rem; }
 .site-footer { margin-top: 0; }
-.about-testimonials { padding-top: clamp(2.5rem, 4vw, 4rem); }
+.about-testimonials { padding-top: clamp(2.25rem, 3vw, 3.25rem); }
 .footer-grid { align-items: start; }
 .footer-column { text-align: start; }
 .footer-social { justify-content: flex-start; }
