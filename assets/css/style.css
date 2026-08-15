@@ -758,7 +758,9 @@ body:has(.hero) .hero { background: var(--sp-bg); }
 .pricing-card *, .price-card * { overflow-wrap: anywhere; }
 .service-foot .service-cta { position: relative; z-index: 2; padding: .4rem .78rem; min-height: 36px; font-size: .8rem; }
 .site-footer { margin-top: 0; }
-.about-testimonials { padding-top: clamp(2.25rem, 3vw, 3.25rem); }
+/* About page: keep the team-to-testimonials transition at a normal section gap. */
+.about-team-section { padding-bottom: 2rem; }
+.about-team-section + .about-testimonials { padding-top: 2rem; }
 .footer-grid { align-items: start; }
 .footer-column { text-align: start; }
 .footer-social { justify-content: flex-start; }
@@ -773,6 +775,8 @@ html[dir="rtl"] .footer-social { justify-content: flex-start; }
 .auth-social-apple { color: #fff; background: #111827; border-color: #111827; }
 .auth-footer a { color: var(--sp-brand) !important; font-weight: 700; }
 @media (max-width: 575.98px) {
+  .about-team-section { padding-bottom: 1.5rem; }
+  .about-team-section + .about-testimonials { padding-top: 1.5rem; }
   .hero-actions { width: 100%; }
   .hero-actions .btn { width: 100%; }
   .auth-social { grid-template-columns: 1fr; }
