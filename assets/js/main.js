@@ -102,7 +102,38 @@
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (window.AOS) AOS.init({ duration: 700, once: true, offset: 60, disable: reduced });
     if (window.GLightbox) GLightbox({ selector: ".glightbox", touchNavigation: true, loop: true });
-    if (window.PureCounter) new PureCounter();
+    if (window.PureCounter) new PureCounter({ selector: ".purecounter" });
+
+    /* PureCounter 1.5 drops the decimal for this fractional statistic in some
+       browsers. Keep the same viewport-triggered animation, but format this
+       one value directly so it remains 4.9 throughout and after the count. */
+    document.querySelectorAll(".purecounter-rating").forEach((counter) => {
+      const end = Number(counter.dataset.purecounterEnd);
+      const decimals = Number(counter.dataset.purecounterDecimals || 1);
+      const duration = Number(counter.dataset.purecounterDuration || 2) * 1000;
+      const render = (value) => { counter.textContent = value.toFixed(decimals); };
+      const animate = () => {
+        if (reduced || !Number.isFinite(end)) { render(end); return; }
+        const startTime = performance.now();
+        const tick = (now) => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          render(end * progress);
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+      render(end);
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          animate();
+        }, { threshold: .15 });
+        observer.observe(counter);
+      } else {
+        animate();
+      }
+    });
 
     /* Sticky header ------------------------------------------ */
     const header = document.getElementById("siteHeader");
