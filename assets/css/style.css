@@ -701,9 +701,14 @@ html[dir="rtl"] .contact-form .choices[data-type*="select-one"]::after { left: 1
 .footer-container { max-width: 1320px; }
 .footer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 60px; }
 .footer-column { min-width: 0; }
-/* The DOM is contact, services, quick links, company. Direction controls the visual flow. */
+/* The shared footer markup is contact, services, quick links, company.
+   Order its grid items explicitly for the default left-to-right layout. */
 html[dir="ltr"] .footer-grid { direction: ltr; }
 html[dir="ltr"] .footer-column { text-align: left; }
+html[dir="ltr"] .footer-company { order: 1; }
+html[dir="ltr"] .footer-grid > [aria-labelledby="footer-quick-links"] { order: 2; }
+html[dir="ltr"] .footer-grid > [aria-labelledby="footer-services"] { order: 3; }
+html[dir="ltr"] .footer-contact-column { order: 4; }
 html[dir="rtl"] .footer-grid { direction: rtl; }
 html[dir="rtl"] .footer-column { text-align: right; }
 .site-footer h2, .site-footer .footer-title { color: #0f172a; letter-spacing: 0; margin: 0 0 24px; }
