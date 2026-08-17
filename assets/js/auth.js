@@ -249,6 +249,7 @@
     const session = getSession();
     if (!session || !session.loggedIn) return;
     const prefix = rootPrefix();
+    document.querySelectorAll('.site-header a.btn.btn-brand[href="register.html"]').forEach((a) => a.remove());
     document.querySelectorAll("a.btn-outline-brand").forEach((a) => {
       if (a.textContent.trim() === "Login") swapSignInButton(a, session, prefix);
     });
