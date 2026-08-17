@@ -1,28 +1,547 @@
-/* SparklePro - RTL overrides. Activated with <html dir="rtl">. */
-[dir="rtl"] { --sp-start: right; --sp-end: left; }
-[dir="rtl"] body { text-align: right; }
-[dir="rtl"] .navbar-nav { padding-inline-start: 0; }
-[dir="rtl"] .dropdown-menu { text-align: right; }
-[dir="rtl"] .dropdown-menu-end { --bs-position: start; }
-[dir="rtl"] .breadcrumb-item + .breadcrumb-item { padding-right: .5rem; padding-left: 0; }
-[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before { float: right; padding-left: .5rem; padding-right: 0; content: "\\\\"; transform: scaleX(-1); }
-[dir="rtl"] .bi-arrow-right::before { content: "\\f12f"; }
-[dir="rtl"] .link-more .bi, [dir="rtl"] .more .bi, [dir="rtl"] .btn .bi-arrow-right { transform: scaleX(-1); }
-[dir="rtl"] .timeline { padding-inline-start: 2rem; }
-[dir="rtl"] .pull-quote { border-inline-start: 4px solid var(--sp-brand); }
+/* =========================================================
+   SparklePro - Global RTL Overrides
+   Activated with <html dir="rtl"> across all pages.
+   ========================================================= */
+
+/* 1. Base, Reset & Tokens --------------------------------- */
+[dir="rtl"] {
+  --sp-start: right;
+  --sp-end: left;
+}
+
+[dir="rtl"] body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Typography & Headings */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3,
+[dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6,
+[dir="rtl"] .h1, [dir="rtl"] .h2, [dir="rtl"] .h3,
+[dir="rtl"] .h4, [dir="rtl"] .h5, [dir="rtl"] .h6 {
+  text-align: right;
+}
+
+[dir="rtl"] p,
+[dir="rtl"] li {
+  text-align: right;
+}
+
+/* Directional Text Utilities */
+[dir="rtl"] .text-start,
+[dir="rtl"] .text-lg-start,
+[dir="rtl"] .text-md-start,
+[dir="rtl"] .text-sm-start {
+  text-align: right !important;
+}
+
+[dir="rtl"] .text-end,
+[dir="rtl"] .text-lg-end,
+[dir="rtl"] .text-md-end,
+[dir="rtl"] .text-sm-end {
+  text-align: left !important;
+}
+
+[dir="rtl"] .me-auto {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+[dir="rtl"] .ms-auto {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+/* Directional Icons & Quotations */
+[dir="rtl"] .bi-arrow-right::before { content: "\f12f"; }
+[dir="rtl"] .bi-arrow-left::before { content: "\f138"; }
+[dir="rtl"] .bi-chevron-right::before { content: "\f284"; }
+[dir="rtl"] .bi-chevron-left::before { content: "\f285"; }
+[dir="rtl"] .link-more .bi,
+[dir="rtl"] .more .bi,
+[dir="rtl"] .btn .bi-arrow-right {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .pull-quote {
+  border-inline-start: 4px solid var(--sp-brand);
+  border-inline-end: none;
+  padding-inline-start: 1.25rem;
+  padding-inline-end: 0;
+}
+
+[dir="rtl"] .breadcrumb-item + .breadcrumb-item {
+  padding-right: .5rem;
+  padding-left: 0;
+}
+
+[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
+  float: right;
+  padding-left: .5rem;
+  padding-right: 0;
+  content: "\\";
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .stars {
+  direction: ltr;
+  display: inline-flex;
+}
+
+/* 2. Header & Navigation ---------------------------------- */
+[dir="rtl"] .topbar-list {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .topbar-list li i {
+  margin-inline-end: .4rem;
+  margin-inline-start: 0;
+}
+
+[dir="rtl"] .topbar-social {
+  justify-content: flex-end;
+}
+
+[dir="rtl"] .navbar-nav {
+  padding-inline-start: 0;
+}
+
+[dir="rtl"] .nav-actions {
+  margin-inline-start: auto;
+}
+
+[dir="rtl"] .dropdown-menu {
+  text-align: right;
+}
+
+[dir="rtl"] .dropdown-menu-end {
+  --bs-position: start;
+}
+
+[dir="rtl"] .dropdown-item i {
+  margin-inline-end: .5rem;
+  margin-inline-start: 0;
+}
+
+@media (min-width: 992px) {
+  [dir="rtl"] .main-nav .navbar-nav > .nav-item.dropdown > .dropdown-menu {
+    right: 0 !important;
+    left: auto !important;
+  }
+}
+
+/* Mobile Nav Drawer */
+[dir="rtl"] .offcanvas-start {
+  right: 0;
+  left: auto;
+  transform: translateX(100%);
+}
+
+[dir="rtl"] .offcanvas-start.show {
+  transform: none;
+}
+
+/* 3. Hero & Content Sections ------------------------------ */
+[dir="rtl"] .hero-lead,
+[dir="rtl"] .hero-trust {
+  text-align: right;
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .hero-actions {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .hero-float {
+  inset-inline-start: auto;
+  inset-inline-end: -6%;
+}
+
+[dir="rtl"] .stat-num span,
+[dir="rtl"] .stat-suffix {
+  margin-inline-start: .1rem;
+  margin-inline-end: 0;
+}
+
+[dir="rtl"] .stats-band .stat-card > div {
+  justify-content: center;
+}
+
+/* Cards & Lists */
+[dir="rtl"] .card,
+[dir="rtl"] .panel,
+[dir="rtl"] .card-body,
+[dir="rtl"] .service-card,
+[dir="rtl"] .pricing-card,
+[dir="rtl"] .price-card,
+[dir="rtl"] .blog-card,
+[dir="rtl"] .review-card,
+[dir="rtl"] .testimonial-card,
+[dir="rtl"] .team-card,
+[dir="rtl"] .feature-card,
+[dir="rtl"] .auth-card {
+  text-align: right;
+}
+
+[dir="rtl"] .checklist li,
+[dir="rtl"] .feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  text-align: right;
+}
+
+[dir="rtl"] .checklist li i,
+[dir="rtl"] .feature-list li i {
+  margin-inline-end: 0;
+  flex: 0 0 auto;
+}
+
+[dir="rtl"] .timeline {
+  padding-inline-start: 2rem;
+  padding-inline-end: 0;
+}
+
+[dir="rtl"] .track-timeline li::before {
+  inset-inline-start: -1.72rem;
+  inset-inline-end: auto;
+}
+
+[dir="rtl"] .badge-pop {
+  transform: translateX(-50%);
+}
+
+[dir="rtl"] .accordion-button {
+  text-align: right;
+}
+
+[dir="rtl"] .accordion-button::after {
+  margin-right: auto;
+  margin-left: 0;
+}
+
 [dir="rtl"] .swiper-button-prev::after { content: "next"; }
 [dir="rtl"] .swiper-button-next::after { content: "prev"; }
-[dir="rtl"] .text-lg-start { text-align: right !important; }
-[dir="rtl"] .text-lg-end { text-align: left !important; }
-[dir="rtl"] .me-auto { margin-right: 0 !important; margin-left: auto !important; }
-[dir="rtl"] .ms-auto { margin-left: 0 !important; margin-right: auto !important; }
-[dir="rtl"] .dash-sidebar { border-left: 1px solid var(--sp-border); border-right: none; }
-[dir="rtl"] .accordion-button::after { margin-right: auto; margin-left: 0; }
-[dir="rtl"] .form-check { padding-right: 1.5em; padding-left: 0; }
-[dir="rtl"] .form-check .form-check-input { float: right; margin-right: -1.5em; margin-left: 0; }
-[dir="rtl"] .form-switch .form-check-input { background-position: right center; }
-[dir="rtl"] .form-switch .form-check-input:checked { background-position: left center; }
-[dir="rtl"] .input-group > :not(:first-child) { border-top-left-radius: 999px; border-bottom-left-radius: 999px; }
-[dir="rtl"] .bar-chart { flex-direction: row-reverse; }
-[dir="rtl"] .track-timeline li::before { inset-inline-start: -1.72rem; }
-[dir="rtl"] .badge-pop { transform: translateX(50%); }
+
+/* 4. Forms & Controls ------------------------------------- */
+[dir="rtl"] .form-control,
+[dir="rtl"] .form-select,
+[dir="rtl"] textarea.form-control {
+  text-align: right;
+  direction: rtl;
+  unicode-bidi: plaintext;
+}
+
+[dir="rtl"] .form-control[type="email"],
+[dir="rtl"] .form-control[type="tel"],
+[dir="rtl"] .form-control[type="password"],
+[dir="rtl"] .form-control[type="url"] {
+  direction: ltr;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+
+[dir="rtl"] .form-label {
+  text-align: right;
+  display: block;
+}
+
+[dir="rtl"] .form-floating > label {
+  right: 0;
+  left: auto;
+  transform-origin: top right;
+  text-align: right;
+}
+
+[dir="rtl"] .form-check {
+  padding-right: 1.5em;
+  padding-left: 0;
+  text-align: right;
+}
+
+[dir="rtl"] .form-check .form-check-input {
+  float: right;
+  margin-right: -1.5em;
+  margin-left: 0;
+}
+
+[dir="rtl"] .form-switch {
+  padding-right: 2.5em;
+  padding-left: 0;
+}
+
+[dir="rtl"] .form-switch .form-check-input {
+  float: right;
+  margin-right: -2.5em;
+  margin-left: 0;
+  background-position: right center;
+}
+
+[dir="rtl"] .form-switch .form-check-input:checked {
+  background-position: left center;
+}
+
+[dir="rtl"] .input-group > :not(:first-child) {
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+[dir="rtl"] .input-group > :not(:last-child) {
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[dir="rtl"] .choices {
+  text-align: right;
+}
+
+[dir="rtl"] .choices[data-type*="select-one"]::after {
+  left: 14px;
+  right: auto;
+}
+
+[dir="rtl"] .choices__list--dropdown .choices__item {
+  text-align: right;
+}
+
+/* 5. Blog & Details --------------------------------------- */
+[dir="rtl"] .blog-meta {
+  justify-content: flex-start;
+  text-align: right;
+  gap: 1rem;
+}
+
+[dir="rtl"] .blog-toc {
+  text-align: right;
+}
+
+[dir="rtl"] .blog-toc ol,
+[dir="rtl"] .blog-toc ul {
+  padding-inline-start: 1.5rem;
+}
+
+[dir="rtl"] .blog-author-card,
+[dir="rtl"] .blog-sidebar {
+  text-align: right;
+}
+
+[dir="rtl"] .blog-categories li {
+  justify-content: space-between;
+}
+
+[dir="rtl"] .tag-cloud {
+  justify-content: flex-start;
+}
+
+/* 6. Contact Section -------------------------------------- */
+[dir="rtl"] .contact-info-card {
+  text-align: right;
+}
+
+[dir="rtl"] .contact-info-card i {
+  margin-inline-end: .75rem;
+  margin-inline-start: 0;
+}
+
+[dir="rtl"] .contact-form {
+  text-align: right;
+}
+
+/* 7. Dashboard & Admin ------------------------------------ */
+[dir="rtl"] .dash-shell {
+  direction: rtl;
+}
+
+[dir="rtl"] .dash-sidebar {
+  border-left: 1px solid var(--sp-border);
+  border-right: none;
+  text-align: right;
+}
+
+[dir="rtl"] .dash-nav .nav-link {
+  text-align: right;
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .dash-nav .nav-link i {
+  margin-inline-end: .75rem;
+  margin-inline-start: 0;
+}
+
+[dir="rtl"] .dash-header {
+  direction: rtl;
+  justify-content: space-between;
+}
+
+[dir="rtl"] .table {
+  text-align: right;
+}
+
+[dir="rtl"] .bar-chart {
+  flex-direction: row-reverse;
+}
+
+/* 8. Footer RTL Layout ------------------------------------ */
+html[dir="rtl"] .site-footer {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .footer-grid {
+  direction: rtl;
+}
+
+/* Reverse footer column order in RTL:
+   Grid column 1 (far right): SparklePro / Brand
+   Grid column 2 (center right): Quick Links
+   Grid column 3 (center left): Services
+   Grid column 4 (far left): Get In Touch / Contact */
+html[dir="rtl"] .footer-grid > .footer-company {
+  order: 1;
+}
+
+html[dir="rtl"] .footer-grid > [aria-labelledby="footer-quick-links"] {
+  order: 2;
+}
+
+html[dir="rtl"] .footer-grid > [aria-labelledby="footer-services"] {
+  order: 3;
+}
+
+html[dir="rtl"] .footer-grid > .footer-contact-column {
+  order: 4;
+}
+
+/* Footer Typography & Elements */
+html[dir="rtl"] .footer-column,
+html[dir="rtl"] .site-footer h2,
+html[dir="rtl"] .site-footer .footer-title,
+html[dir="rtl"] .footer-about,
+html[dir="rtl"] .footer-links,
+html[dir="rtl"] .footer-links li,
+html[dir="rtl"] .footer-links a,
+html[dir="rtl"] .footer-contact,
+html[dir="rtl"] .footer-newsletter-wrap,
+html[dir="rtl"] .footer-newsletter-title,
+html[dir="rtl"] .footer-newsletter-message {
+  text-align: right;
+}
+
+html[dir="rtl"] .footer-contact li {
+  direction: rtl;
+  flex-direction: row;
+  text-align: right;
+}
+
+html[dir="rtl"] .footer-contact a[href^="tel:"],
+html[dir="rtl"] .footer-contact a[href^="mailto:"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: right;
+}
+
+html[dir="rtl"] .footer-social {
+  justify-content: flex-start;
+}
+
+/* Newsletter Controls */
+html[dir="rtl"] .footer-subscribe-row {
+  direction: rtl;
+  flex-direction: row;
+}
+
+html[dir="rtl"] .footer-newsletter .form-control {
+  direction: rtl;
+  text-align: right;
+  border-radius: 0 var(--sp-radius-sm) var(--sp-radius-sm) 0;
+}
+
+html[dir="rtl"] .footer-newsletter .btn {
+  border-radius: var(--sp-radius-sm) 0 0 var(--sp-radius-sm);
+}
+
+/* Footer Bottom Bar */
+html[dir="rtl"] .footer-bottom {
+  direction: rtl;
+  text-align: right;
+  justify-content: space-between;
+}
+
+html[dir="rtl"] .footer-bottom p {
+  text-align: right;
+}
+
+html[dir="rtl"] .footer-bottom ul {
+  direction: rtl;
+  justify-content: flex-end;
+}
+
+/* 9. Responsive Refinements ------------------------------- */
+@media (max-width: 991.98px) {
+  [dir="rtl"] .hero-float {
+    inset-inline-start: auto;
+    inset-inline-end: 4%;
+  }
+
+  [dir="rtl"] .why-media {
+    padding-inline-start: 2rem;
+    padding-inline-end: 0;
+  }
+
+  [dir="rtl"] .why-badge {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+  }
+
+  [dir="rtl"] .dash-sidebar {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    z-index: 1050;
+    transform: translateX(105%);
+    transition: transform .3s ease;
+  }
+
+  [dir="rtl"] .dash-sidebar.is-open {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 767.98px) {
+  html[dir="rtl"] .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  html[dir="rtl"] .footer-bottom p {
+    text-align: center;
+  }
+
+  html[dir="rtl"] .footer-bottom ul {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 575.98px) {
+  html[dir="rtl"] .footer-subscribe-row {
+    flex-direction: column;
+  }
+
+  html[dir="rtl"] .footer-newsletter .form-control,
+  html[dir="rtl"] .footer-newsletter .btn {
+    border-radius: var(--sp-radius-sm);
+    width: 100%;
+  }
+
+  [dir="rtl"] .hero-float {
+    position: static;
+    margin-top: 1rem;
+    max-width: none;
+  }
+}

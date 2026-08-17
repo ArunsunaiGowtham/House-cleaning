@@ -79,7 +79,7 @@
     document.querySelectorAll(".stats-band .stat-card").forEach((card) => {
       const label = card.querySelector("p")?.textContent.trim();
       const number = card.querySelector(".stat-num");
-      if (!number || !statSuffixes[label] || number.parentElement.classList.contains("stat-number-wrap")) return;
+      if (!number || !statSuffixes[label] || number.parentElement.classList.contains("stat-number-wrap") || number.textContent.includes(statSuffixes[label]) || number.querySelector("span")) return;
       const wrap = document.createElement("div"); wrap.className = "stat-number-wrap";
       number.before(wrap); wrap.append(number);
       const suffix = document.createElement("span"); suffix.className = "stat-suffix"; suffix.textContent = statSuffixes[label]; wrap.append(suffix);

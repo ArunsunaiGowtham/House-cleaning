@@ -1,4 +1,4 @@
-/* SparklePro - rtl.js : LTR / RTL direction switching with persistence. */
+/* SparklePro - rtl.js : LTR / RTL direction switching with persistence across all pages. */
 (() => {
   "use strict";
   const KEY = "sparklepro-dir";
@@ -14,16 +14,18 @@
     });
   };
 
-  paint(localStorage.getItem(KEY) === "rtl" ? "rtl" : "ltr");
+  const initialDir = localStorage.getItem(KEY) === "rtl" ? "rtl" : "ltr";
+  paint(initialDir);
 
   document.addEventListener("DOMContentLoaded", () => {
-    paint(root.getAttribute("dir") || "ltr");
+    paint(localStorage.getItem(KEY) === "rtl" ? "rtl" : "ltr");
     document.querySelectorAll("#dirToggle, [data-dir-toggle]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const next = root.getAttribute("dir") === "rtl" ? "ltr" : "rtl";
+        const current = localStorage.getItem(KEY) === "rtl" ? "rtl" : "ltr";
+        const next = current === "rtl" ? "ltr" : "rtl";
         localStorage.setItem(KEY, next);
         paint(next);
-        if (window.Swiper) window.setTimeout(() => window.location.reload(), 60);
+        window.dispatchEvent(new Event("resize"));
       });
     });
   });
