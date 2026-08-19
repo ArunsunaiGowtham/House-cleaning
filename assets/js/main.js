@@ -54,6 +54,16 @@
           activeLink.classList.add("active");
           activeLink.setAttribute("aria-current", "page");
         }
+
+        const dropdownItems = nav.querySelectorAll(".dropdown-menu .dropdown-item[href]");
+        dropdownItems.forEach((item) => {
+          item.classList.remove("active");
+          item.removeAttribute("aria-current");
+          if (getPageKey(item.href) === currentPage) {
+            item.classList.add("active");
+            item.setAttribute("aria-current", "page");
+          }
+        });
       });
     };
 
@@ -66,6 +76,13 @@
 
     document.querySelectorAll('.dropdown-item[href="index.html"]').forEach((link) => { link.textContent = "Home 1"; });
     document.querySelectorAll('.dropdown-item[href="home-cleaning.html"]').forEach((link) => { link.textContent = "Home 2"; });
+
+    /* Dropdown interactions --------------------------------- */
+    document.querySelectorAll(".dropdown-toggle").forEach((toggle) => {
+      if (window.bootstrap && window.bootstrap.Dropdown) {
+        bootstrap.Dropdown.getOrCreateInstance(toggle);
+      }
+    });
 
     document.querySelectorAll(".auth-social-google, .auth-social-apple").forEach((button) => {
       const provider = button.classList.contains("auth-social-google") ? "Google" : "Apple";

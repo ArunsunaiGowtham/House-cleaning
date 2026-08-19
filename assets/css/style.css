@@ -178,24 +178,56 @@ textarea.form-control { min-height: 140px; }
 .brand-text span { color: var(--sp-brand); }
 .navbar-nav .nav-link { font-weight: 600; color: var(--sp-ink); padding-inline: .95rem !important; position: relative; transition: color .2s ease; }
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover { color: var(--sp-brand-dark); }
-.navbar-nav .nav-link.active::after {
-  content: ""; position: absolute; inset-inline: .95rem; bottom: .2rem; height: 2px; background: var(--sp-gradient); border-radius: 2px;
+.navbar-nav .nav-link:not(.dropdown-toggle).active::after {
+  content: ""; position: absolute; inset-inline: .95rem; bottom: .2rem; height: 2px; background: var(--sp-gradient); border-radius: 2px; pointer-events: none;
+}
+.dropdown-toggle::after {
+  display: inline-block !important;
+  margin-inline-start: .4em !important;
+  vertical-align: .2em !important;
+  content: "" !important;
+  border-top: .32em solid currentColor !important;
+  border-right: .32em solid transparent !important;
+  border-bottom: 0 !important;
+  border-left: .32em solid transparent !important;
+  position: static !important;
+  height: auto !important;
+  background: none !important;
+  border-radius: 0 !important;
+  transition: transform .2s ease;
+}
+.dropdown-toggle[aria-expanded="true"]::after,
+.nav-item.dropdown:hover .dropdown-toggle::after {
+  transform: rotate(180deg);
 }
 .dropdown-menu {
-  border: 1px solid var(--sp-border); border-radius: var(--sp-radius); box-shadow: var(--sp-shadow);
-  padding: .5rem; background: var(--sp-surface); min-width: 245px;
+  border: 1px solid var(--sp-border); border-radius: 12px; box-shadow: var(--sp-shadow);
+  padding: .5rem; background: var(--sp-surface); min-width: 200px; z-index: 1060;
 }
-.dropdown-item { border-radius: 10px; padding: .55rem .8rem; font-weight: 500; color: var(--sp-body); }
+.dropdown-item { border-radius: 8px; padding: .55rem .85rem; font-weight: 500; color: var(--sp-body); }
 .dropdown-item:hover, .dropdown-item:focus { background: var(--sp-brand-soft); color: var(--sp-brand-dark); }
+.dropdown-item.active, .dropdown-item:active { background: var(--sp-brand-soft) !important; color: var(--sp-brand-dark) !important; font-weight: 700 !important; }
 /* Keep desktop navigation dropdowns anchored to their own menu item. Bootstrap's
    Popper transform can otherwise retain a stale horizontal offset after layout
    direction changes. The mobile offcanvas keeps Bootstrap's default behavior. */
 @media (min-width: 992px) {
   .main-nav .navbar-nav > .nav-item.dropdown { position: relative; }
   .main-nav .navbar-nav > .nav-item.dropdown > .dropdown-menu {
+    position: absolute !important;
     top: 100% !important;
-    margin-top: .125rem !important;
+    margin-top: .35rem !important;
     transform: none !important;
+    z-index: 1060 !important;
+    min-width: 200px;
+    padding: .55rem;
+    border-radius: 12px;
+    box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.22);
+  }
+  .main-nav .navbar-nav > .nav-item.dropdown:hover > .dropdown-menu,
+  .main-nav .navbar-nav > .nav-item.dropdown > .dropdown-menu.show {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   :root:not([dir="rtl"]) .main-nav .navbar-nav > .nav-item.dropdown > .dropdown-menu {
     left: 0 !important;
@@ -212,7 +244,9 @@ textarea.form-control { min-height: 140px; }
 .mobile-nav .nav-link { padding-inline: 0 !important; }
 .mobile-nav .nav-link.active { color: var(--sp-brand-dark); }
 .mobile-nav .nav-link.active::after { inset-inline: 0; bottom: .1rem; }
-.mobile-nav .dropdown-menu { box-shadow: none; border: none; background: var(--sp-surface-2); }
+.mobile-nav .dropdown-menu { box-shadow: none; border: 1px solid var(--sp-border); background: var(--sp-surface-2); min-width: 100%; margin-top: .5rem; }
+.mobile-nav .dropdown-menu:not(.show) { display: none; }
+.mobile-nav .dropdown-menu.show { display: block; }
 
 /* Hero */
 .hero {
@@ -241,18 +275,18 @@ textarea.form-control { min-height: 140px; }
 }
 
 /* Page hero */
-.page-hero { position: relative; overflow: hidden; background: var(--sp-gradient-soft); padding-block: clamp(3rem, 6vw, 5rem); text-align: center; min-height: 280px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.page-hero { position: relative; overflow: hidden; background: #08131e; padding-block: clamp(3.5rem, 7vw, 5.5rem); text-align: center; min-height: 280px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
 @media (min-width: 768px) { .page-hero { min-height: 350px; } }
 @media (min-width: 992px) { .page-hero { min-height: 400px; } }
 .page-hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
 .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-.page-hero-content { position: relative; z-index: 2; width: 100%; }
-[data-bs-theme="light"] .page-hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255, 255, 255, .78), rgba(248, 250, 252, .76), rgba(255, 255, 255, .78)); z-index: 1; pointer-events: none; }
-[data-bs-theme="light"] .page-hero-content { color: #0b1f33; }
-[data-bs-theme="light"] .page-hero h1 { color: #0b1f33; text-shadow: 0 1px 2px rgba(255,255,255,.65); }
-[data-bs-theme="light"] .page-hero .eyebrow { color: var(--sp-brand-dark); text-shadow: none; }
-[data-bs-theme="light"] .page-hero .lead { max-width: 46rem; margin-inline: auto; color: #405266; font-weight: 500; text-shadow: 0 1px 2px rgba(255,255,255,.65); }
-[data-bs-theme="light"] .page-hero .post-meta { color: #405266; }
+.page-hero-bg::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(6, 18, 30, 0.42) 0%, rgba(6, 18, 30, 0.58) 100%); }
+.page-hero-content { position: relative; z-index: 2; width: 100%; color: #fff; }
+.page-hero h1, .page-hero h2, .blog-detail-hero-title, [data-bs-theme="light"] .page-hero h1, [data-bs-theme="light"] .page-hero h2, [data-bs-theme="light"] .blog-detail-hero-title { color: #ffffff !important; font-family: var(--sp-display); font-weight: 800; font-size: clamp(2.2rem, 5vw, 3.25rem); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); margin-bottom: .6rem; }
+.page-hero .eyebrow { color: #0b5e54; background: #ffffff; border: 1px solid rgba(18, 183, 166, 0.35); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .8rem; text-shadow: none; margin-bottom: .6rem; }
+[data-bs-theme="light"] .page-hero .eyebrow { color: #0b5e54 !important; background: #ffffff !important; border: 1px solid rgba(18, 183, 166, 0.35); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18); font-weight: 700; text-shadow: none; }
+.page-hero .lead, [data-bs-theme="light"] .page-hero .lead { max-width: 46rem; margin-inline: auto; color: #f1f5f9 !important; font-weight: 500; font-size: clamp(1rem, 2vw, 1.15rem); text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75); }
+.page-hero .post-meta, .blog-detail-hero-meta, [data-bs-theme="light"] .page-hero .post-meta, [data-bs-theme="light"] .blog-detail-hero-meta { color: #f1f5f9 !important; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); }
 [data-bs-theme="light"] .page-crumb .breadcrumb-item, [data-bs-theme="light"] .page-crumb .breadcrumb-item a { color: #405266; }
 [data-bs-theme="light"] .page-crumb .breadcrumb-item.active { color: var(--sp-brand-dark); }
 [data-bs-theme="light"] .breadcrumb-item + .breadcrumb-item::before { color: #64748b; }
@@ -390,6 +424,8 @@ textarea.form-control { min-height: 140px; }
 .form-switch .form-check-input { width: 3rem; height: 1.5rem; }
 
 .faq-accordion .accordion-item { border: 1px solid var(--sp-border); border-radius: var(--sp-radius) !important; margin-bottom: .8rem; overflow: hidden; background: var(--sp-surface); }
+.faq-accordion .accordion-item:last-child { margin-bottom: 0; }
+.contact-faq-section { padding-bottom: 0 !important; }
 .accordion-button { font-family: var(--sp-display); font-weight: 600; color: var(--sp-ink); background: var(--sp-surface); padding: 1.1rem 1.3rem; }
 .accordion-button:not(.collapsed) { background: var(--sp-brand-soft); color: var(--sp-brand-dark); box-shadow: none; }
 .accordion-button:focus { box-shadow: 0 0 0 .2rem rgba(18, 183, 166, .2); }
