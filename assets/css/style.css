@@ -431,7 +431,7 @@ textarea.form-control { min-height: 140px; }
 .accordion-button:focus { box-shadow: 0 0 0 .2rem rgba(18, 183, 166, .2); }
 .accordion-body { color: var(--sp-muted); padding: 0 1.3rem 1.2rem; }
 
-.cta-band { padding-block: 0; }
+.cta-band { padding-block: var(--sp-section-y); }
 .cta-inner {
   background: var(--sp-gradient); color: #fff; border-radius: var(--sp-radius-lg);
   padding: clamp(2rem, 4vw, 3.2rem); display: flex; flex-wrap: wrap; gap: 1.5rem;
